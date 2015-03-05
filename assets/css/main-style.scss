@@ -1,5 +1,5 @@
 .index-content-wrapper {
-  padding-top: 20vh;
+  padding-top: 15vh;
   text-align: center;
   color: #333;
   h1{
@@ -10,4 +10,58 @@
 .login-wrapper{
 	margin-left: 20%;
 	margin-right: 20%;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	input{
+		display: block;
+		margin: 5px;
+	}
+	.panel-login{
+		 border-color: #333;
+		 border-width: 2px;
+		 boder-style: solid;
+		 border-radius: 5px;
+		 padding: 40px;
+		 margin: 20px;
+	}
+	.form-control {
+	  color: #333;
+	  background-color: #fff;
+	  background-image: none;
+	  border: 2px solid #333;
+	  border-radius: 5px;
+	}
+	a{
+		color: #777;
+		&:hover{
+			color: #222;
+			text-decoration: none;
+		}
+	}
+	.other-option{
+		margin-top: 10px;
+		font-size: 12px;
+		.register-link{
+		float: left;
+		}
+		.login-as-guest-link{
+		float: right;
+		}
+	}
+	
+	
+	
+}
+
+.btn-darkgrey{
+	color: #fff;
+	background: #666;
+	width: 100%;
+	border: 2px solid #666;
+	font-size: 14px;
+	&:hover{
+		color: #fff;
+		background: #222;
+		border: 2px solid #222;
+	}
 }

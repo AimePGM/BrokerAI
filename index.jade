@@ -8,7 +8,15 @@ body
   .container.index-content-wrapper
     h1 Broker AI
     h2 NEW WAY OF STOCK INVESTMENT
-    .login-wrapper aaa
+    .login-wrapper
+      form
+        .panel.panel-login
+          input(type='text', placeholder='username').form-control
+          input(type='password', placeholder='password').form-control
+          button(type='submit').btn.btn-darkgrey Login
+          .other-option
+            a(href='register').register-link Register
+            a(href='main').login-as-guest-link Login as guest
   
 
   script(src='/assets/js/jquery.js')
