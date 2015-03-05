@@ -1,0 +1,44 @@
+html
+
+head
+  link(rel='stylesheet' href='/assets/css/bootstrap.min.css')
+  link(rel='stylesheet' href='/assets/css/main-style.scss')
+  
+body
+
+  nav.navbar.navbar-grey.navbar-fixed-top
+      .container-fluid
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#nav-menu')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') CPSK Internship
+        // Collect the nav links, forms, and other content for toggling
+        #nav-menu.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href='thailand')
+                | Thailand 
+                span.sr-only (current)
+            li
+               a(href='overseas') Overseas
+            
+          ul.nav.navbar-nav.navbar-right
+              form.navbar-form.navbar-left(role='search')
+                .input-group.nav-search-group
+                  input.form-control.nav-search-input(type='text', placeholder='Find Internship')
+                  span.input-group-btn
+                    button.btn.btn-grey-to-white(type='button')
+                      span.glyphicon.glyphicon-search.nav-search-btn
+             
+            
+        // /.navbar-collapse
+      // /.container-fluid
+
+  
+
+  script(src='/assets/js/jquery.js')
+  script(src='/assets/js/bootstrap.min.js')
