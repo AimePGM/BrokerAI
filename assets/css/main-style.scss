@@ -1,3 +1,4 @@
+
 .index-content-wrapper {
   padding-top: 15vh;
   text-align: center;
@@ -79,6 +80,7 @@
 .navbar-font{
 	font-size: 18px;
 	color: #999;
+	text-align: center;
 	&:hover{
 		color: #f2f2f2;
 	}
@@ -123,6 +125,13 @@
 			height: 260px;
 			padding: 2px;
 			margin-bottom: 5px;
+		}
+		a{
+			color: #fff;
+			text-decoration: none;
+			&:hover{
+				box-shadow: 1px 0 20px #333;
+			}
 		}
 		.stock-predict-content{
 			background: #333;
