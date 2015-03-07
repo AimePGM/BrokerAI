@@ -29,16 +29,15 @@ mixin navbar
           ul.nav.navbar-nav.col-md-8.col-sm-12.col-lg-8
             li.col-md-3.col-sm-12.col-lg-3
               a(href='Home').navbar-font
-                | Home
+                | HOME
                 span.sr-only (current)
             li.col-md-3.col-sm-12.col-lg-3
-               a(href='favorite').navbar-font Favorite
+               a(href='favorite').navbar-font FAVORITE
             li.col-md-3.col-sm-12.col-lg-3
-               a(href='stocks').navbar-font Stocks
+               a(href='stocks').navbar-font STOCKS
             li.col-md-3.col-sm-12.col-lg-3
-               a(href='Simulator').navbar-font Simulator
+               a(href='Simulator').navbar-font SIMULATOR
           ul.nav.navbar-nav.navbar-right
             li
-              a(href='Home').navbar-font
-                | Home
-                span.sr-only (current)
+              .form-group.searchbox
+                input(type='text',name='search',placeholder="Search").form-control.navbar-font

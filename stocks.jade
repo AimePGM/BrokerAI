@@ -1,0 +1,53 @@
+include lib/common
++page('Broker AI')
+  div(ng-controller='ShowStocksController')
+    section
+      .container.main-content-wrapper
+        .row.col-md-12.col-lg-12.col-sm-12
+          .row.col-md-8.col-lg-8.col-sm-12
+            h1 STOCKS
+          .row.col-md-4.col-lg-4.col-sm-12
+            .btn-group.btn-group-options(data-toggle='buttons')
+              label.btn.btn-darkgrey.active
+                input#daily(type='radio', name='predict', autocomplete='off', checked)
+                |  Daily
+              label.btn.btn-darkgrey
+                input#weekly(type='radio', name='predict', autocomplete='off')
+                |  Weekly
+              label.btn.btn-darkgrey
+                input#monthly(type='radio', name='predict', autocomplete='off')
+                |  Monthly
+        
+        .row
+          hr
+        .content
+          table.table-bordered
+            thead
+              tr
+                th SYMBOL
+                th COMPANY
+                th LAST SALE
+                th CHANGE NET / %
+            tbody
+              tr
+                th(scope="row") AAPL
+                td
+                  Apple Apple Inc.
+                  i.fa.fa-info-circle 
+                td $128.79
+                td 3.38 2.56%
+              tr
+                th(scope="row") AAPL
+                td Apple Inc.
+                td $128.79
+                td 3.38 2.56%
+              tr
+                th(scope="row") AAPL
+                td Apple Inc.
+                td $128.79
+                td 3.38 2.56%
+              tr
+                th(scope="row") AAPL
+                td Apple Inc.
+                td $128.79
+                td 3.38 2.56%
