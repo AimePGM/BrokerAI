@@ -5,7 +5,9 @@ include lib/common
       .container.main-content-wrapper
         .row.col-md-12.col-lg-12.col-sm-12
           .row.col-md-8.col-lg-8.col-sm-12
-            h1 STOCKS
+            h1 
+              li.fa.fa-heart.down
+              |   FAVORITES
           .row.col-md-4.col-lg-4.col-sm-12
             .btn-group.btn-group-options(data-toggle='buttons')
               label.btn.btn-darkgrey.active
@@ -29,15 +31,15 @@ include lib/common
                 th LAST SALE
                 th CHANGE NET / %
             tbody
-              tr(ng-repeat="stock in stocks")
-                th(scope="row") {{stock.stock_name}}
+              tr(ng-repeat="fav in favorite_stocks")
+                th(scope="row") {{fav.stock_name}}
                 td.table-company-name
-                  | {{stock.stock_fullname}}
+                  | {{fav.stock_fullname}}
                   i.fa.fa-info-circle.moreinfo 
                 td last sale
-                td.down(ng-if='stock.daily_predict===\'down\'') {{stock.daily_predict_price}}  
+                td.down(ng-if='fav.daily_predict===\'down\'') {{fav.daily_predict_price}}  
                   li.fa.fa-caret-up
-                    |   {{stock.daily_predict_percent}}
-                td.up(ng-if='stock.daily_predict===\'up\'') {{stock.daily_predict_price}}  
+                    |   {{fav.daily_predict_percent}}
+                td.up(ng-if='fav.daily_predict===\'up\'') {{fav.daily_predict_price}}  
                   li.fa.fa-caret-up
-                    |   {{stock.daily_predict_percent}}
+                    |   {{fav.daily_predict_percent}}
