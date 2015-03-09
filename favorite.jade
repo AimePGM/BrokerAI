@@ -33,7 +33,7 @@ include lib/common
             tbody
               tr(ng-repeat="fav in favorite_stocks")
                 th.col-md-2.col-lg-2-col-sm-2(scope="row") {{fav.stock_name}}
-                td.col-md-5.col-lg-5-col-sm-5.table-company-name
+                td.col-md-5.col-lg-5-col-sm-5(style="position:relative;")
                   | {{fav.stock_fullname}}
                   i.fa.fa-info-circle.moreinfo 
                 td.col-md-2.col-lg-2-col-sm-2 last sale

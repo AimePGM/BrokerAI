@@ -17,7 +17,6 @@ include lib/common
               label.btn.btn-darkgrey
                 input#monthly(type='radio', name='predict', autocomplete='off')
                 |  Monthly
-        
         .row
           hr
         .content
@@ -31,9 +30,10 @@ include lib/common
             tbody
               tr(ng-repeat="stock in stocks")
                 th.col-md-2.col-lg-2-col-sm-2(scope="row") {{stock.stock_name}}
-                td.col-md-5.col-lg-5-col-sm-5.table-company-name
-                  | {{stock.stock_fullname}}
-                  i.fa.fa-info-circle.moreinfo 
+                td.col-md-5.col-lg-5-col-sm-5(style="position:relative;")
+                  a
+                    | {{stock.stock_fullname}}
+                    i.fa.fa-info-circle.moreinfo 
                 td.col-md-2.col-lg-2-col-sm-2 last sale
                 td.col-md-3.col-lg-3-col-sm-3.down(ng-if='stock.daily_predict===\'down\'') {{stock.daily_predict_price}}  
                   li.fa.fa-caret-down
