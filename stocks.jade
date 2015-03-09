@@ -29,25 +29,15 @@ include lib/common
                 th LAST SALE
                 th CHANGE NET / %
             tbody
-              tr
-                th(scope="row") AAPL
+              tr(ng-repeat="stock in stocks")
+                th(scope="row") {{stock.stock_name}}
                 td.table-company-name
-                  | Apple Inc.
+                  | {{stock.stock_fullname}}
                   i.fa.fa-info-circle.moreinfo 
-                td $128.79
-                td 3.38 2.56%
-              tr
-                th(scope="row") AAPL
-                td Apple Inc.
-                td $128.79
-                td 3.38 2.56%
-              tr
-                th(scope="row") AAPL
-                td Apple Inc.
-                td $128.79
-                td 3.38 2.56%
-              tr
-                th(scope="row") AAPL
-                td Apple Inc.
-                td $128.79
-                td 3.38 2.56%
+                td last sale
+                td.down(ng-if='stock.daily_predict===\'down\'') {{stock.daily_predict_price}}  
+                  li.fa.fa-caret-up
+                    |   2.56%
+                td.up(ng-if='stock.daily_predict===\'up\'') {{stock.daily_predict_price}}  
+                  li.fa.fa-caret-up
+                    |   2.56%

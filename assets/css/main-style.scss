@@ -163,6 +163,7 @@
 				margin-right: 10px;
 				font-size: 20px;
 				color: #777;
+				bottom: 0;
 				&:hover{
 					color: #fff;
 				} 
@@ -170,6 +171,13 @@
 			
 		}
 	}
+}
+
+.up{
+	color: #01DF01;
+}
+.down{
+	color: #FF0000;
 }
 .btn-group-options{
 	display: flex;
