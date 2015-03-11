@@ -15,7 +15,7 @@ mixin page(title)
 
 mixin navbar
   nav.navbar.navbar-inverse.navbar-fixed-top
-      .container-fluid.navbar-margin
+      .navbar-margin.container-fluid
         // Brand and toggle get grouped for better mobile display
         .navbar-header
           button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#nav-menu')
@@ -26,18 +26,20 @@ mixin navbar
           a.navbar-brand(href='main') Broker AI
         // Collect the nav links, forms, and other content for toggling
         #nav-menu.collapse.navbar-collapse
-          ul.nav.navbar-nav.col-md-8.col-sm-12.col-lg-8
-            li.col-md-3.col-sm-12.col-lg-3
+          ul.nav.navbar-nav.col-md-9.col-sm-9.col-lg-9.navbar-right
+            li.col-md-2.col-sm-2.col-lg-2
               a(href='main').navbar-font
                 | HOME
                 span.sr-only (current)
-            li.col-md-3.col-sm-12.col-lg-3
+            li.col-md-2.col-sm-2.col-lg-2
                a(href='favorite').navbar-font FAVORITE
-            li.col-md-3.col-sm-12.col-lg-3
+            li.col-md-2.col-sm-2.col-lg-2
                a(href='stocks').navbar-font STOCKS
-            li.col-md-3.col-sm-12.col-lg-3
+            li.col-md-2.col-sm-2.col-lg-2
                a(href='simulator').navbar-font SIMULATOR
-          ul.nav.navbar-nav.navbar-right
-            li
-              .form-group.searchbox
-                input(type='text',name='search',placeholder="Search").form-control.navbar-font
+            li.col-md-2.col-sm-2.col-lg-2
+              a.navbar-font
+                span.glyphicon.glyphicon-user
+            li.col-md-2.col-sm-2.col-lg-2
+              .searchbox
+                input(type='text',name='search', placeholder='search').form-control.navbar-font
