@@ -114,7 +114,7 @@
 	.row{
 		margin: 0;
 		h1{
-			font-size: 40px;
+			font-size: 60px;
 		}
 	}
 	.content{
@@ -211,4 +211,16 @@
 	position: absolute;
 	bottom: 25%;
 	right: 5px;
+}
+.searchstock{
+	padding-left: 10px;
+	padding-right:	30px;
+}
+.category-drop{
+	width:	100%;	
+}
+.submitB{
+	height:	55px;
+	font-size:	20px;
+	text-align:	center;
 }

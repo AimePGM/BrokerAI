@@ -1,0 +1,60 @@
+include lib/common
++page('Broker AI')
+  div(ng-controller='ShowStocksController')
+    section
+      .container.main-content-wrapper
+        .row.col-md-12.col-lg-12.col-sm-12
+          .row.col-md-8.col-lg-8.col-sm-12
+            h1 STOCK SIMULATOR
+        .row
+          hr
+        .content
+          .well
+            .row(style='margin-bottom:15px;')
+              .col-md-12
+                input(type='text',name='searchStock',placeholder="SEARCH : STOCK NAME").form-control.submitB
+            .row(style='margin-bottom:15px;')                            
+              .col-md-6
+                .dropdown
+                  button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true').category-drop.submitB
+                      | Category
+                      span.caret
+                    |   
+                  ul.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
+                      li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') Action
+                      |     
+                      li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') Another action
+                      |     
+                      li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') Something else here
+                      |     
+                      li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') Separated link
+              .col-md-6
+                input(type='text',name='searchStock',placeholder="BUDGETS").form-control.submitB
+            .row(style='margin-bottom:15px;')
+              .col-md-6
+                .dropdown
+                  button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true').category-drop.submitB
+                      | Duration
+                      span.caret
+                    |   
+                  ul.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
+                      li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') Action
+                      |     
+                      li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') Another action
+                      |     
+                      li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') Something else here
+                      |     
+                      li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') Separated link
+              .col-md-6
+                input(type='text',name='searchStock',placeholder="PROFITS").form-control.submitB
+            .row
+              .col-md-12
+                button.btn.submitB.category-drop.btn-primary SUBMIT
