@@ -1,0 +1,24 @@
+include lib/common
++page('Broker AI')
+  div(ng-controller='ShowStocksController')
+    section
+      .container.main-content-wrapper
+        .row.col-md-12.col-lg-12.col-sm-12
+          .row.col-md-8.col-lg-8.col-sm-12
+            h1 STOCK'S INFO
+          .row.col-md-4.col-lg-4.col-sm-12
+            .btn-group.btn-group-options(data-toggle='buttons')
+              label.btn.btn-darkgrey.active
+                input#daily(type='radio', name='predict', autocomplete='off', checked)
+                |  Daily
+              label.btn.btn-darkgrey
+                input#weekly(type='radio', name='predict', autocomplete='off')
+                |  Weekly
+              label.btn.btn-darkgrey
+                input#monthly(type='radio', name='predict', autocomplete='off')
+                |  Monthly
+        .row
+          hr
+        div(id='candlestick').chartdiv
+        hr
+        div(id='linechart').chartdiv
