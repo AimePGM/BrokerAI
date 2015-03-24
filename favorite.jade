@@ -34,8 +34,9 @@ include lib/common
               tr(ng-repeat="fav in favorite_stocks")
                 th.col-md-2.col-lg-2-col-sm-2(scope="row") {{fav.stock_name}}
                 td.col-md-5.col-lg-5-col-sm-5(style="position:relative;")
-                  | {{fav.stock_fullname}}
-                  i.fa.fa-info-circle.moreinfo 
+                  a(href='/info')
+                    | {{fav.stock_fullname}}
+                    i.fa.fa-info-circle.moreinfo 
                 td.col-md-2.col-lg-2-col-sm-2 last sale
                 td.col-md-3.col-lg-3-col-sm-3.down(ng-if='fav.daily_predict===\'down\'') {{fav.daily_predict_price}}  
                   li.fa.fa-caret-down

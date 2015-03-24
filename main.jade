@@ -24,15 +24,15 @@ include lib/common
           .col-lg-4.col-md-4.col-sm-12.stock-predict-wrapper(ng-repeat='rs in recommemded_stocks')
             a
               .stock-predict-content
-                p.fullname {{rs.stock_fullname}}
-                p.name ({{rs.stock_name}})
+                p.fullname.white-text {{rs.stock_fullname}}
+                p.name.white-text ({{rs.stock_name}})
                 .row.up(ng-if='rs.daily_predict===\'up\'')
                   li.fa.fa-caret-up.info  {{rs.daily_predict_price}}
                   p.info {{rs.daily_predict_percent}}
                 .row.down(ng-if='rs.daily_predict===\'down\'')
                   li.fa.fa-caret-up.info  {{rs.daily_predict_price}}
                   p.info {{rs.daily_predict_percent}}
-                a(href='stocks')
+                a(href='/info')
                   li.fa.fa-info.moreinfo
 
 

@@ -1,31 +1,65 @@
 var chartData = generateChartData();
+
 var chart = AmCharts.makeChart("linechart", {
     "type": "serial",
     "theme": "none",
     "pathToImages": "http://www.amcharts.com/lib/3/images/",
+    "legend": {
+        "useGraphSettings": true
+    },
     "dataProvider": chartData,
     "valueAxes": [{
-        "axisAlpha": 0.2,
-        "dashLength": 1,
+        "id":"v1",
+        "axisColor": "#FF6600",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "axisAlpha": 1,
+        "position": "left"
+    }, {
+        "id":"v2",
+        "axisColor": "#FCD202",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "axisAlpha": 1,
+        "position": "right"
+    }, {
+        "id":"v3",
+        "axisColor": "#B0DE09",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 50,
+        "axisAlpha": 1,
         "position": "left"
     }],
-    "mouseWheelZoomEnabled":true,
     "graphs": [{
-        "id":"g1",
-        "balloonText": "[[category]]<br/><b><span style='font-size:14px;'>value: [[value]]</span></b>",
+        "valueAxis": "v1",
+        "lineColor": "#FF6600",
         "bullet": "round",
-        "bulletBorderAlpha": 1,
-		"bulletColor":"#FFFFFF",
-        "hideBulletsCount": 50,
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
         "title": "red line",
         "valueField": "visits",
-		"useLineColorForBulletBorder":true
+        "fillAlphas": 0
+    }, {
+        "valueAxis": "v2",
+        "lineColor": "#FCD202",
+        "bullet": "square",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "yellow line",
+        "valueField": "hits",
+        "fillAlphas": 0
+    }, {
+        "valueAxis": "v3",
+        "lineColor": "#B0DE09",
+        "bullet": "triangleUp",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "green line",
+        "valueField": "views",
+        "fillAlphas": 0
     }],
-    "chartScrollbar": {
-        "autoGridCount": true,
-        "graph": "g1",
-        "scrollbarHeight": 40
-    },
+    "chartScrollbar": {},
     "chartCursor": {
         "cursorPosition": "mouse"
     },
@@ -33,48 +67,41 @@ var chart = AmCharts.makeChart("linechart", {
     "categoryAxis": {
         "parseDates": true,
         "axisColor": "#DADADA",
-        "dashLength": 1,
         "minorGridEnabled": true
-    },
-	"exportConfig":{
-	  menuRight: '20px',
-      menuBottom: '30px',
-      menuItems: [{
-      icon: 'http://www.amcharts.com/lib/3/images/export.png',
-      format: 'png'	  
-      }]  
-	}
+    }
 });
 
-chart.addListener("rendered", zoomChart);
+chart.addListener("dataUpdated", zoomChart);
 zoomChart();
-
-// this method is called when chart is first inited as we listen for "dataUpdated" event
-function zoomChart() {
-    // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-    chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
-}
 
 
 // generate some random data, quite different range
 function generateChartData() {
     var chartData = [];
     var firstDate = new Date();
-    firstDate.setDate(firstDate.getDate() - 5);
+    firstDate.setDate(firstDate.getDate() - 100);
 
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < 100; i++) {
         // we create date objects here. In your data, you can have date strings
         // and then set format of your dates using chart.dataDateFormat property,
         // however when possible, use date objects, as this will speed up chart rendering.
         var newDate = new Date(firstDate);
         newDate.setDate(newDate.getDate() + i);
 
-        var visits = Math.round(Math.random() * (40 + i / 5)) + 20 + i;
+        var visits = Math.round(Math.random() * 40) + 100;
+        var hits = Math.round(Math.random() * 80) + 500;
+        var views = Math.round(Math.random() * 6000);
 
         chartData.push({
             date: newDate,
-            visits: visits
+            visits: visits,
+            hits: hits,
+            views: views
         });
     }
     return chartData;
+}
+
+function zoomChart(){
+    chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
 }

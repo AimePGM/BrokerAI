@@ -34,7 +34,7 @@ include lib/common
               tr(ng-repeat="stock in stocks")
                 th.col-md-2.col-lg-2-col-sm-2(scope="row") {{stock.stock_name}}
                 td.col-md-5.col-lg-5-col-sm-5(style="position:relative;")
-                  a
+                  a(href='/info')
                     | {{stock.stock_fullname}}
                     i.fa.fa-info-circle.moreinfo 
                 td.col-md-2.col-lg-2-col-sm-2 last sale
