@@ -19,11 +19,19 @@ include lib/common
                 |  Monthly
         .row
           hr
-        .row.col-md-3.col-md-push-9
-          ul.nav.nav-tabs.nav-justified
-            li.active
-              a(type='button').btn.btn-default.linetab LINE
-            li
-              a(type='button').btn.btn-default.candletab CANDLE
-        div(id='candlestick').chartdiv
+        .row
+          .col-md-8
+            h1(id='line') LINE CHART
+          .col-md-4.graphtab
+            .btn-group.btn-group-justified
+              a(href='#line' role='group' type='button').btn.btn-darkgrey 
+                | LINE
+              a(href='#candle' role='group' type='button').btn.btn-darkgrey
+                | CANDLE STICK  
+
         div(id='linechart').chartdiv
+        hr
+        .row.col-md-8
+          h1(id='candle') CANDLE STICK CHART
+        div(id='candlestick').chartdiv
+      
