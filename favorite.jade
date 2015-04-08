@@ -26,12 +26,15 @@ include lib/common
           table.table-bordered
             thead
               tr
+                th(id ='noBorder')
                 th SYMBOL
                 th COMPANY
                 th LAST SALE
                 th CHANGE NET / %
             tbody
               tr(ng-repeat="fav in favorite_stocks")
+                th(id = 'noborder')
+                  button.unfavButton.noBgButton.fa.fa-heart.down
                 th.col-md-2.col-lg-2-col-sm-2(scope="row") {{fav.stock_name}}
                 td.col-md-5.col-lg-5-col-sm-5(style="position:relative;")
                   a(href='/info')

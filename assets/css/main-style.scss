@@ -197,6 +197,12 @@
 	font-size: 20px;
 	color: white;
 }
+#noBorder{
+	border-right-color: black;	
+}
+#noborder{
+	border-right-color: white;		
+}
 .table-bordered tbody tr th{
 	text-align:	center;
 	font-size: 20px;
@@ -241,4 +247,23 @@
 .graphtab{
 	padding-right: 30px;
 	padding-top: 40px;
+}
+th.noBorder{
+	border-right: none;
+}
+.noBgButton{
+	background: transparent;
+	border: none !important;
+}
+.unfavButton:hover{
+	color: black;
+}
+.unfavButton:active{
+	color: black;
+}
+.favButton{
+	color: gray;
+}
+.favButton:hover{ 
+	color: red;
 }
