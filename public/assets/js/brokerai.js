@@ -1,5 +1,5 @@
-angular.module('brokerai', [])
-.controller('ShowStocksController', [
+var brokerai = angular.module('brokerai', []);
+brokerai.controller('ShowStocksController', [
   '$scope',
   function($scope) {
     $scope.recommemded_stocks = [
@@ -204,4 +204,4 @@ angular.module('brokerai', [])
     ]
   }
 
-])
+]);

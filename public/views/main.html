@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="stockApp">
+
+<head>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/main-style.css">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-margin container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display-->
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" data-target="#nav-menu" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button><a href="main" class="navbar-brand">Broker AI</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling-->
+            <div id="nav-menu" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav col-md-9 col-sm-9 col-lg-9 navbar-right">
+                    <li class="col-md-2 col-sm-2 col-lg-2"><a href="main" class="navbar-font">HOME<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="col-md-2 col-sm-2 col-lg-2"><a href="favorite" class="navbar-font">FAVORITE</a>
+                    </li>
+                    <li class="col-md-2 col-sm-2 col-lg-2"><a href="stocks" class="navbar-font">STOCKS</a>
+                    </li>
+                    <li class="col-md-2 col-sm-2 col-lg-2"><a href="simulator" class="navbar-font">SIMULATOR</a>
+                    </li>
+                    <li class="col-md-2 col-sm-2 col-lg-2"><a href="/index" class="navbar-font"><span class="glyphicon glyphicon-user"></span></a>
+                    </li>
+                    <li class="col-md-2 col-sm-2 col-lg-2">
+                        <div class="searchbox">
+                            <input type="text" name="search" placeholder="SEARCH" class="form-control navbar-font">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div ng-controller="ShowStocksController">
+        <section>
+            <div class="container main-content-wrapper">
+                <div class="row col-md-12 col-lg-12 col-sm-12">
+                    <div class="row col-md-8 col-lg-8 col-sm-12">
+                        <h1>DAILY RECOMMENDED</h1>
+                    </div>
+                    <div class="row col-md-4 col-lg-4 col-sm-12">
+                        <div data-toggle="buttons" class="btn-group btn-group-options">
+                            <label class="btn btn-darkgrey active">
+                                <input id="daily" type="radio" name="predict" autocomplete="off" checked> Daily</label>
+                            <label class="btn btn-darkgrey">
+                                <input id="weekly" type="radio" name="predict" autocomplete="off"> Weekly</label>
+                            <label class="btn btn-darkgrey">
+                                <input id="monthly" type="radio" name="predict" autocomplete="off"> Monthly</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <hr>
+                </div>
+                <div class="content">
+                    <div ng-repeat="rs in recommemded_stocks" class="col-lg-4 col-md-4 col-sm-12 stock-predict-wrapper">
+                        <a>
+                            <div class="stock-predict-content">
+                                <p class="fullname white-text">{{rs.stock_fullname}}</p>
+                                <p class="name white-text">({{rs.stock_name}})</p>
+                                <div ng-if="rs.daily_predict==='up'" class="row up">
+                                    <li class="fa fa-caret-up info"> {{rs.daily_predict_price}}</li>
+                                    <p class="info">{{rs.daily_predict_percent}}</p>
+                                </div>
+                                <div ng-if="rs.daily_predict==='down'" class="row down">
+                                    <li class="fa fa-caret-up info"> {{rs.daily_predict_price}}</li>
+                                    <p class="info">{{rs.daily_predict_percent}}</p>
+                                </div>
+                                <a href="/info">
+                                    <li class="fa fa-info moreinfo"></li>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
+    <!--script(src='/assets/js/brokerai.js')-->
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/controller.js"></script>
+    <!--graph-->
+    <script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="http://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="http://www.amcharts.com/lib/3/themes/none.js"></script>
+    <script src="/assets/js/graph_candlestick.js"></script>
+    <script src="/assets/js/graph_linechart.js"></script>
+</body>
+
+</html>
