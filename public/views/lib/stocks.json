@@ -43,7 +43,7 @@
 		"daily_predict_percent": "12%",
 		"weekly_predict_percent": "5%",
 		"monthly_predict_percent": "7%"
-		},
+	},
 	{
 		"id": 4,
 	  "stock_name": "JAKK",
@@ -59,4 +59,4 @@
 	  "weekly_predict_percent": "5%",
 	  "monthly_predict_percent": "11%"
 	}
-]}
+]

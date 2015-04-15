@@ -5,8 +5,8 @@ var path = require('path');
 app.set('views', __dirname+'/public/views');
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', function (req, res) {
-	res.sendfile(__dirname+'/public/common.html');
+app.get('/*', function (req, res) {
+	res.sendFile(__dirname+'/public/common.html');
 });
 
 // app.get('/main', function (req, res) {
