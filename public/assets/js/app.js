@@ -13,11 +13,31 @@ stockApp.config(['$routeProvider', '$locationProvider',
 			controller: 'StockListCtrl'
 		})
 		.when('/stocks/:stockID', {
-			templateUrl: 'info.html',
+			templateUrl: '/views/info.html',
 			controller: 'StockInfoCtrl'
 
 		})
-		.otherwise({ redirectTo: '/stocks'});
+		.when('/',{
+			templateUrl: '/views/index.html',
+			controller: 'LoginCtrl'
+		})
+		.when('/main',{
+			templateUrl: '/views/main.html',
+			controller: 'MainCtrl'
+		})
+		.when('/favorite',{
+			templateUrl: '/views/favorite.html',
+			controller: 'FavoriteCtrl'
+		})
+		.when('/register',{
+			templateUrl: '/views/register.html',
+			controller: 'RegisterCtrl'
+		})
+		.when('/simulator',{
+			templateUrl: '/views/simulator.html',
+			controller: 'SimulatorCtrl'
+		})
+		.otherwise({ redirectTo: '/'});
 
 		$locationProvider.html5Mode({
         enabled: true,
