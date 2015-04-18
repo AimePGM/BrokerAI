@@ -84,9 +84,9 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams',
 	}
 ]);
 
-stockControllers.controller('LoginCtrl');
+//stockControllers.controller('LoginCtrl');
 
-stockControllers.controller('ResgisterCtrl');
+//stockControllers.controller('ResgisterCtrl');
 
 stockControllers.controller('SimulatorCtrl',['$scope',
 	function($scope) {

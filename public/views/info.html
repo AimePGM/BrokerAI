@@ -1,6 +1,8 @@
 <div ng-include="template.navbar"></div>
 <div>
 	<section>
+		<script src='/assets/js/graph_candlestick.js'></script>
+		<script src='/assets/js/graph_linechart.js'></script>
 		<div class="container main-content-wrapper">
 			<div class="row col-md-12 col-lg-12 col-sm-12">
 				<div class="row col-md-8 col-lg-8 col-sm-12">
@@ -50,7 +52,7 @@
 				</div>
 				<div class="col-md-4 graphtab">
 					<div class="btn-group btn-group-justified">
-						<a href="#line" role="group" type="button" class="btn btn-default">LINE</a>
+						<a href="#line" role="group" type="button" class="btn btn-default" id="line_btn">LINE</a>
 						<a href="#candle" role="group" type="button" class="btn btn-default">CANDLE STICK  </a>
 					</div>
 				</div>

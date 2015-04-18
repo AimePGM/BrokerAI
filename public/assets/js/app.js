@@ -2,7 +2,6 @@ var stockApp = angular.module('stockApp',[
 	'ngRoute',
 	'stockControllers'
 ]);
-console.log("one");
 
 stockApp.config(['$routeProvider', '$locationProvider',
 	function($routeProvider,$locationProvider) {
@@ -18,8 +17,8 @@ stockApp.config(['$routeProvider', '$locationProvider',
 
 		})
 		.when('/',{
-			templateUrl: '/views/index.html',
-			controller: 'LoginCtrl'
+			templateUrl: '/views/index.html'
+			
 		})
 		.when('/main',{
 			templateUrl: '/views/main.html',
@@ -30,8 +29,8 @@ stockApp.config(['$routeProvider', '$locationProvider',
 			controller: 'FavoriteCtrl'
 		})
 		.when('/register',{
-			templateUrl: '/views/register.html',
-			controller: 'RegisterCtrl'
+			templateUrl: '/views/register.html'
+			
 		})
 		.when('/simulator',{
 			templateUrl: '/views/simulator.html',
