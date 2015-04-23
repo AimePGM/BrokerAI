@@ -1,10 +1,18 @@
-var express = require('express');
-var app = express();
 var path = require('path');
+var express = require('express')
+, cors = require('cors')
+, app = express();
+
+app.use(cors());
 
 app.set('views', __dirname+'/public/views');
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 app.get('/*', function (req, res) {
 	res.sendFile(__dirname+'/public/common.html');
 });
