@@ -3,9 +3,22 @@ var stockApp = angular.module('stockApp',[
 	'stockControllers'
 ]);
 
-stockApp.config(['$routeProvider', '$locationProvider',
-	function($routeProvider,$locationProvider) {
-		//console.log($routeProvider);
+stockApp.factory('authInterceptor', authInterceptor);
+
+function authInterceptor($window){
+	return{
+		request: function(config){
+			if($window.localStorage.token){
+				config.headers.Authorization = 'JWT ' + $window.localStorage.token;
+			}
+			return config;
+		}
+	}
+}
+
+stockApp.config(['$routeProvider', '$locationProvider','$httpProvider',
+	function($routeProvider,$locationProvider, $httpProvider) {
+		$httpProvider.interceptors.push('authInterceptor');
 		$routeProvider
 		.when('/stocks', {
 			templateUrl: '/views/stocks.html',
@@ -41,8 +54,8 @@ stockApp.config(['$routeProvider', '$locationProvider',
 		.otherwise({ redirectTo: '/'});
 
 		$locationProvider.html5Mode({
-        enabled: true,
-        requireBase: false
-    });
+				enabled: true,
+				requireBase: false
+		});
 	}
 ]);

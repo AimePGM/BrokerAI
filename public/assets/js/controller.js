@@ -1,15 +1,37 @@
 var stockControllers = angular.module('stockControllers',[]);
 
+stockControllers.controller('NavbarCtrl',['$scope', '$http',
+	function($scope, $http){
+		$http.get('http://128.199.105.21:8000/api/users/')
+			.success(function(data){
+				$scope.user = data;
+		})
+		.error(function(data, headers){
+			console.log(data);
+			console.log(headers);
+		});
+	}
+]);
+
 stockControllers.controller('StockListCtrl', ['$scope', '$http',
 	function($scope, $http) {
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
+
+		$http.get('http://128.199.105.21:8000/api/users/')
+		.success(function(data){
+			$scope.user = data;
+		})
+		.error(function(data, headers){
+			console.log(data);
+			console.log(headers);
+		});
+
 		$http.get('http://128.199.105.21:8000/api/companies/').success(function(data) {
 			var companies = data;
 			$http.get('http://128.199.105.21:8000/api/lateststocks/').success(function(data) {
 				var stocks = data;
-
 				stocks.forEach(function(stock){
 					companies.forEach(function(company){
 						if(stock.company_id==company.id){
@@ -36,6 +58,12 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http',
 	}
 ]);
 
+stockControllers.controller('LogoutCtrl',['$window',
+	function($window){
+		$window.localStorage.removeItem('token');
+	}
+]);
+
 stockControllers.controller('LoginCtrl',['$scope','$http','$window',
 	function($scope, $http, $window){
 		$scope.user = {};
@@ -43,7 +71,6 @@ stockControllers.controller('LoginCtrl',['$scope','$http','$window',
 			$http.post('http://128.199.105.21:8000/api/login/',$scope.user)
 			.success(function(data){
 				$window.localStorage.token = data.token;
-				console.log($window.localStorage.token);
 				alert("Login succeed");
 				window.location = "http://127.0.0.1:3000/main";
 			})
@@ -86,7 +113,6 @@ stockControllers.controller('MainCtrl',['$scope','$routeParams','$window',
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
-		console.log($window.localStorage.token);
 		$scope.recommemded_stocks = [
 				{
 					"id": 1,
