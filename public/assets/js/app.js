@@ -17,7 +17,8 @@ stockApp.config(['$routeProvider', '$locationProvider',
 
 		})
 		.when('/',{
-			templateUrl: '/views/index.html'
+			templateUrl: '/views/index.html',
+			controller: 'LoginCtrl'
 			
 		})
 		.when('/main',{
@@ -29,7 +30,8 @@ stockApp.config(['$routeProvider', '$locationProvider',
 			controller: 'FavoriteCtrl'
 		})
 		.when('/register',{
-			templateUrl: '/views/register.html'
+			templateUrl: '/views/register.html',
+			controller: 'ResgisterCtrl'
 			
 		})
 		.when('/simulator',{
