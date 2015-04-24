@@ -24,12 +24,15 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http',
 	}
 ]);
 
-stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams',
-	function($scope, $routeParams) {
+stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http',
+	function($scope, $routeParams,$http) {
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
-		$scope.stockID = $routeParams.stockID;
+		$http.get('http://128.199.105.21:8000/api/companies/'+$routeParams.stockID+'/').success(function(data) {
+			$scope.stock = data;
+			console.log(data);
+		});
 	}
 ]);
 
