@@ -68,17 +68,26 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http',
 			var chartData = []; //store stock data for making graph
 
 			//choose 100 close&open price
-			stocks.forEach(function(stock){
-				var newDate = new Date(stock.date);
-				var closed_price = stock.close_price;
-				var open_price = stock.open_price;
+			for (var i = 0; i < 99; i++) {
+				var newDate = new Date(stocks[i].date);
+				var closed_price = stocks[i].close_price;
+				var open_price = stocks[i].open_price;
 				//store each data
 				chartData.push({
 				  date: newDate,
 				  closed_price: closed_price,
 				  open_price: open_price
 				});
-			});
+			};
+			for (var i = 110; i < 120; i++) {
+				var newDate = new Date(stocks[i].date);
+				var open_price = stocks[i].open_price;
+				//store each data
+				chartData.push({
+				  date: newDate,
+				  open_price: open_price
+				});
+			};
 
 			console.log(chartData);
 			//creating graph
