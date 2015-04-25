@@ -39,13 +39,13 @@
 																<th id="noborder">
 																		<button class="unfavButton noBgButton fa fa-heart down"></button>
 																</th>
-																<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{fav.stock_name}}
+																<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{fav.symbol}}
 																</th>
 																<td style="position:relative;" class="col-md-5 col-lg-5-col-sm-5">
-																	<a href="/stocks/{{fav.id}}">{{fav.stock_fullname}}<i class="fa fa-info-circle moreinfo"></i>
+																	<a href="/stocks/{{fav.company_id}}">{{fav.name}}<i class="fa fa-info-circle moreinfo"></i>
 																	</a>
 																</td>
-																<td class="col-md-2 col-lg-2-col-sm-2">last sale</td>
+																<td class="col-md-2 col-lg-2-col-sm-2">{{fav.close_price}}</td>
 																<td ng-if="fav.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{fav.daily_predict_price}}
 																		<li class="fa fa-caret-down"> {{fav.daily_predict_percent}}
 																		</li>

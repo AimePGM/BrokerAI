@@ -279,72 +279,55 @@ stockControllers.controller('MainCtrl',['$scope','$routeParams','$window',
 	}
 ]);
 
-stockControllers.controller('FavoriteCtrl',['$scope','$routeParams',
-	function($scope, $routeParams) {
+stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http',
+	function($scope, $routeParams, $http) {
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
-		$scope.favorite_stocks = [
-				{
-					"id": 1,
-					"stock_name": "AAPL Fave",
-					"stock_fullname": "APPLE fave",
-					"category": "IT",
-					"daily_predict": "up",
-					"daily_predict_price": "10.85",
-					"weekly_predict": "up",
-					"weekly_predict_price": "11.05",
-					"monthly_predict": "down",
-					"monthly_predict_price": "9.69",
-					"daily_predict_percent": "47%",
-					"weekly_predict_percent": "49%",
-					"monthly_predict_percent": "43%",
-				},
-				{
-					"id": 2,
-					"stock_name": "ONFC",
-					"stock_fullname": "Oneida Financial Corp.",
-					"category": "IT",
-					"daily_predict": "down",
-					"daily_predict_price": "6.24",
-					"weekly_predict": "up",
-					"weekly_predict_price": "6.30",
-					"monthly_predict": "down",
-					"monthly_predict_price": "6.19",
-					"daily_predict_percent": "20%",
-					"weekly_predict_percent": "25%",
-					"monthly_predict_percent": "21%",
-				},
-				{
-					"id": 3,
-					"stock_name": "SFXE",
-					"stock_fullname": "SFX Enterainment, Inc.",
-					"category": "Movie",
-					"daily_predict": "down",
-					"daily_predict_price": "1.09",
-					"weekly_predict": "up",
-					"weekly_predict_price": "1.30",
-					"monthly_predict": "up",
-					"monthly_predict_price": "1.54",
-					"daily_predict_percent": "12%",
-					"weekly_predict_percent": "5%",
-					"monthly_predict_percent": "7%",
-				},
-				{
-					"id": 4,
-					"stock_name": "JAKK",
-					"stock_fullname": "JAKKS Pacific, Inc.",
-					"category": "Logistics",
-					"daily_predict": "up",
-					"daily_predict_price": "20.07",
-					"weekly_predict": "up",
-					"weekly_predict_price": "19.98",
-					"monthly_predict": "up",
-					"monthly_predict_price": "20.09",
-					"daily_predict_percent": "2%",
-					"weekly_predict_percent": "5%",
-					"monthly_predict_percent": "11%",
-				},
-			]
+
+		$http.get('http://128.199.105.21:8000/api/favorite/')
+		.success(function(data) {
+			var stocks = data;
+			var id = [];
+			var companies =[];
+			
+			//foreach to get list of company's id
+			stocks.forEach(function(stock){
+				id.push(stock.company_id);
+			});
+
+			//foreach to get list of company name from id array
+			id.forEach(function(i){
+
+				$http.get('http://128.199.105.21:8000/api/companies/'+i+'/')
+				.success(function(data){
+					var temp = data;
+
+					$http.get('http://128.199.105.21:8000/api/lateststocks/')
+					.success(function(data){
+						var lastests = data;
+
+						lastests.forEach(function(lastest){
+							if(lastest.company_id == temp.id)
+								{
+									companies.push({
+								  name: temp.name,
+								  company_id:temp.id,
+								  symbol: temp.symbol,
+								  close_price: lastest.close_price
+									});
+								}
+						});
+					})
+					.error(function(data){
+						console.log(data);
+					});
+				})
+				.error(function(data){
+					console.log(data);
+				});
+			});
+			$scope.favorite_stocks = companies;	
+		});
 	}
 ]);
