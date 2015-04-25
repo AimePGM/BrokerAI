@@ -11,7 +11,7 @@
 	margin-right:20%;
 	padding-top:30px;
 	padding-bottom:30px
-	}
+}
 .login-wrapper input{
 	display:block;
 	margin:5px
@@ -83,6 +83,9 @@
 }
 .navbar-right{
 	margin-right:20px
+}
+.username-bar{
+	line-height: 3;
 }
 .navbar-inverse .navbar-brand{
 	font-size:30px;

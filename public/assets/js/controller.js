@@ -1,7 +1,7 @@
 var stockControllers = angular.module('stockControllers',[]);
 
-stockControllers.controller('NavbarCtrl',['$scope', '$http',
-	function($scope, $http){
+stockControllers.controller('NavbarCtrl',['$scope', '$http','$window',
+	function($scope, $http, $window){
 		$http.get('http://128.199.105.21:8000/api/users/')
 			.success(function(data){
 				$scope.user = data;
@@ -10,6 +10,12 @@ stockControllers.controller('NavbarCtrl',['$scope', '$http',
 			console.log(data);
 			console.log(headers);
 		});
+
+		$scope.logout = function() {
+			console.log("removed");
+      $window.localStorage.removeItem('token');
+      window.location = "http://127.0.0.1:3000/";
+    };
 	}
 ]);
 
@@ -58,12 +64,6 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http',
 	}
 ]);
 
-stockControllers.controller('LogoutCtrl',['$window',
-	function($window){
-		$window.localStorage.removeItem('token');
-	}
-]);
-
 stockControllers.controller('LoginCtrl',['$scope','$http','$window',
 	function($scope, $http, $window){
 		$scope.user = {};
@@ -77,6 +77,7 @@ stockControllers.controller('LoginCtrl',['$scope','$http','$window',
 			.error(function(data,status){
 				console.log(data);
 				console.log(status);
+				alert("error");
 			});
 		};
 	}

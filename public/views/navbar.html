@@ -12,7 +12,7 @@
       </div>
     <!-- Collect the nav links, forms, and other content for toggling-->
       <div id="nav-menu" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav col-md-9 col-sm-9 col-lg-9 navbar-right">
+        <ul class="nav navbar-nav col-md-10 col-sm-10 col-lg-10 navbar-right">
           <li class="col-md-2 col-sm-2 col-lg-2">
             <a href="/main" class="navbar-font">HOME
               <span class="sr-only">(current)</span>
@@ -28,15 +28,21 @@
             <a href="/simulator" class="navbar-font">SIMULATOR</a>
           </li>
           <li class="col-md-2 col-sm-2 col-lg-2">
-            <a href="/index" class="navbar-font">
-              <span class="glyphicon glyphicon-user"> {{user.username}}</span>
-            </a>
-          </li>
-          <li class="col-md-2 col-sm-2 col-lg-2">
             <div class="searchbox">
               <input type="text" name="search" placeholder="SEARCH" class="form-control navbar-font">
             </div>
           </li>
+          <li class="username-bar col-md-2 col-sm-2 col-lg-2">
+            <div class="col-md-8 col-sm-8 col-lg-8">
+              <a class="navbar-font">
+                <span class="glyphicon glyphicon-user navbar-font"> {{user.username}}</span>
+              </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-lg-4">
+              <a ng-click="logout()" class="navbar-font">Logout</a>
+            </div>
+          </li>
+          
         </ul>
       </div>
   </div>
