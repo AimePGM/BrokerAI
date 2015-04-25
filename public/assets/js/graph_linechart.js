@@ -1,5 +1,4 @@
 var chartData = generateChartData();
-
 var chart = AmCharts.makeChart("linechart", {
     "type": "serial",
     "theme": "none",

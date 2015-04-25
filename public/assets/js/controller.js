@@ -59,7 +59,82 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http',
 		}
 		$http.get('http://128.199.105.21:8000/api/companies/'+$routeParams.stockID+'/').success(function(data) {
 			$scope.stock = data;
-			console.log(data);
+		});
+			
+			//line chart
+		$http.get('http://128.199.105.21:8000/api/stocks/'+$routeParams.stockID+'/')
+		.success(function(data) {
+			var stocks = data;
+			var chartData = []; //store stock data for making graph
+
+			//choose 100 close&open price
+			stocks.forEach(function(stock){
+				var newDate = new Date(stock.date);
+				var closed_price = stock.close_price;
+				var open_price = stock.open_price;
+				//store each data
+				chartData.push({
+				  date: newDate,
+				  closed_price: closed_price,
+				  open_price: open_price
+				});
+			});
+
+			console.log(chartData);
+			//creating graph
+			var chart = AmCharts.makeChart("linechart", {
+		    "type": "serial",
+		    "theme": "none",
+		    "pathToImages": "http://www.amcharts.com/lib/3/images/",
+		    "legend": {
+		        "useGraphSettings": true
+		    },
+		    "dataProvider": chartData, //input chartdata into graph
+		    "valueAxes": [{ //how many axes to be created
+		        "id":"v1",
+		        "axisColor": "#FF6600",
+		        "axisThickness": 2,
+		        "gridAlpha": 0,
+		        "axisAlpha": 1,
+		        "position": "left"
+		    }],
+		    "graphs": [{ //how many line graph to be created
+		        "valueAxis": "v1",
+		        "lineColor": "#FF6600",
+		        "bullet": "round",
+		        "bulletBorderThickness": 1,
+		        "hideBulletsCount": 30,
+		        "title": "open_price line", //graph line name
+		        "valueField": "open_price", //name of value
+		        "fillAlphas": 0
+		    }, {
+		        "valueAxis": "v2",
+		        "lineColor": "#FCD202",
+		        "bullet": "square",
+		        "bulletBorderThickness": 1,
+		        "hideBulletsCount": 30,
+		        "title": "closed_price line",
+		        "valueField": "closed_price",
+						"fillAlphas": 0
+		    }],
+		    "chartScrollbar": {},
+		    "chartCursor": {
+		        "cursorPosition": "mouse"
+		    },
+		    "categoryField": "date",
+		    "categoryAxis": {
+		        "parseDates": true,
+		        "axisColor": "#DADADA",
+		        "minorGridEnabled": true
+		    }
+			});
+			
+			function zoomChart(){
+			  chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
+			}
+			chart.addListener("dataUpdated", zoomChart);
+			zoomChart();
+
 		});
 	}
 ]);
