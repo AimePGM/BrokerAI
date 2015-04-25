@@ -60,8 +60,24 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http',
 		$http.get('http://128.199.105.21:8000/api/companies/'+$routeParams.stockID+'/').success(function(data) {
 			$scope.stock = data;
 		});
-			
-			//line chart
+
+		//lastest stock data
+		$http.get('http://128.199.105.21:8000/api/lateststocks/').success(function(data) {
+				var stocks = data;
+				var lastest ={};
+				stocks.forEach(function(stock){
+					if(stock.company_id==$routeParams.stockID){
+						lastest.open_price = stock.open_price;
+						lastest.close_price = stock.close_price;
+						lastest.high_price = stock.high_price;
+						lastest.low_price = stock.low_price;
+					}
+				});
+				$scope.lastest=lastest;
+				console.log(lastest);
+		});
+
+		//line chart
 		$http.get('http://128.199.105.21:8000/api/stocks/'+$routeParams.stockID+'/')
 		.success(function(data) {
 			var stocks = data;
@@ -89,7 +105,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http',
 				});
 			};
 
-			console.log(chartData);
+			// console.log(chartData);
 			//creating graph
 			var chart = AmCharts.makeChart("linechart", {
 		    "type": "serial",
