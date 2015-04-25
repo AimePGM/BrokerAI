@@ -45,7 +45,7 @@
 																	<a href="/stocks/{{fav.company_id}}">{{fav.name}}<i class="fa fa-info-circle moreinfo"></i>
 																	</a>
 																</td>
-																<td class="col-md-2 col-lg-2-col-sm-2">{{fav.close_price}}</td>
+																<td class="col-md-2 col-lg-2-col-sm-2">{{fav.close_price | number:3}}</td>
 																<td ng-if="fav.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{fav.daily_predict_price}}
 																		<li class="fa fa-caret-down"> {{fav.daily_predict_percent}}
 																		</li>

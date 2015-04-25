@@ -25,6 +25,31 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http',
 			"navbar": "/views/navbar.html"
 		}
 
+		$scope.fav = function(data){
+			var company_id = data;
+			var post_fav = {};
+
+			$http.get('http://128.199.105.21:8000/api/users/')
+			.success(function(data){
+				var temp = data;
+				post_fav.user_id = temp.id;
+				post_fav.company_id = company_id;
+				$scope.user = post_fav;
+
+				$http.post('http://128.199.105.21:8000/api/favorite/',$scope.user)
+				.success(function(data){
+					console.log(data);
+				})
+				.error(function(data){
+					console.log(data);
+				});
+
+			})
+			.error(function(data){
+				console.log(data);
+			});
+		}
+
 		$http.get('http://128.199.105.21:8000/api/users/')
 		.success(function(data){
 			$scope.user = data;
