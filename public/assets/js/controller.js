@@ -19,8 +19,9 @@ stockControllers.controller('NavbarCtrl',['$scope', '$http','$window',
 	}
 ]);
 
-stockControllers.controller('StockListCtrl', ['$scope', '$http',
-	function($scope, $http) {
+stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerService',
+	function($scope, $http, usSpinnerService) {
+
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
@@ -130,6 +131,8 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http',
 						$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
 
 					});
+					usSpinnerService.stop('spinner-1');
+
 				})
 				.error(function(data){
 				});
@@ -140,8 +143,8 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http',
 	}
 ]);
 
-stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http',
-	function($scope, $routeParams,$http) {
+stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','usSpinnerService',
+	function($scope, $routeParams,$http, usSpinnerService) {
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
@@ -163,6 +166,8 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http',
 				});
 				$scope.lastest=lastest;
 				console.log(lastest);
+				usSpinnerService.stop('spinner-1');
+
 		});
 
 		//line chart
@@ -367,8 +372,8 @@ stockControllers.controller('MainCtrl',['$scope','$routeParams','$window',
 	}
 ]);
 
-stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http',
-	function($scope, $routeParams, $http) {
+stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usSpinnerService',
+	function($scope, $routeParams, $http, usSpinnerService) {
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
@@ -404,6 +409,8 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http',
 								});
 								console.log(ans);
 								$scope.favorite_stocks = ans;
+								usSpinnerService.stop('spinner-1');
+
 							})
 							.error(function(data){
 								console.log(data);

@@ -1,7 +1,12 @@
 var stockApp = angular.module('stockApp',[
 	'ngRoute',
-	'stockControllers'
+	'stockControllers',
+	'angularSpinner'
 ]);
+
+stockApp.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
+    usSpinnerConfigProvider.setDefaults({color: 'grey'});
+}]);
 
 stockApp.factory('authInterceptor', authInterceptor);
 
