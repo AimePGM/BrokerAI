@@ -28,19 +28,12 @@
             <a href="/simulator" class="navbar-font">SIMULATOR</a>
           </li>
           <li class="col-md-2 col-sm-2 col-lg-2">
-            <div class="searchbox">
-              <input type="text" name="search" placeholder="SEARCH" class="form-control navbar-font">
-            </div>
+            <a class="navbar-font">
+              <span class="glyphicon glyphicon-user navbar-font"> {{user.username}}</span>
+            </a>
           </li>
-          <li class="username-bar col-md-2 col-sm-2 col-lg-2">
-            <div class="col-md-8 col-sm-8 col-lg-8">
-              <a class="navbar-font">
-                <span class="glyphicon glyphicon-user navbar-font"> {{user.username}}</span>
-              </a>
-            </div>
-            <div class="col-md-4 col-sm-4 col-lg-4">
+          <li class="username-bar col-md-2 col-sm-2 col-lg-2">           
               <a ng-click="logout()" class="navbar-font">Logout</a>
-            </div>
           </li>
           
         </ul>

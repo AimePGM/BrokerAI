@@ -3,7 +3,7 @@ var stockControllers = angular.module('stockControllers',[]);
 stockControllers.controller('NavbarCtrl',['$scope', '$http','$window',
 	function($scope, $http, $window){
 		$http.get('http://128.199.105.21:8000/api/users/')
-			.success(function(data){
+		.success(function(data){
 				$scope.user = data;
 		})
 		.error(function(data, headers){
@@ -24,6 +24,13 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 
 		$scope.template={
 			"navbar": "/views/navbar.html"
+		}
+
+		$scope.searchResult = function(){
+			if($scope.selectedCompany == undefined)
+				return;
+			window.location = "http://127.0.0.1:3000/stocks/"+$scope.selectedCompany.description.id+'/'
+			console.log($scope.selectedCompany);
 		}
 
 		$scope.toggle = function(data){
@@ -109,6 +116,8 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 
 		$http.get('http://128.199.105.21:8000/api/companies/').success(function(data) {
 			var companies = data;
+			$scope.companies = companies;
+
 			$http.get('http://128.199.105.21:8000/api/lateststocks/').success(function(data) {
 				var stocks = data;
 				var ans = stocks.filter(function(stock){

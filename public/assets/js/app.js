@@ -1,12 +1,26 @@
 var stockApp = angular.module('stockApp',[
 	'ngRoute',
 	'stockControllers',
-	'angularSpinner'
+	'angularSpinner',
+	'angucomplete-alt'
 ]);
 
 stockApp.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
     usSpinnerConfigProvider.setDefaults({color: 'grey'});
 }]);
+
+stockApp.directive('ngEnter' , function(){
+	return function(scope, element, attrs){
+		element.bind("keydown keypree", function(event){
+			if(event.which == 13){
+				scope.$apply(function(){
+					scope.$eval(attrs.ngEnter);
+				});
+				  event.preventDefault();
+			}
+		});
+	}
+});
 
 stockApp.factory('authInterceptor', authInterceptor);
 
