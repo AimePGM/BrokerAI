@@ -119,7 +119,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 					};
 				});
 				$scope.stocks=ans
-
+				usSpinnerService.stop('spinner-1');
 				//change heart color
 				$http.get('http://128.199.105.21:8000/api/favorite/')
 				.success(function(data){
@@ -131,7 +131,6 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 						$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
 
 					});
-					usSpinnerService.stop('spinner-1');
 
 				})
 				.error(function(data){
