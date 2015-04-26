@@ -87,6 +87,8 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 
 				})
 				.error(function(data){
+					alert("Please Login");
+     				window.location = "http://127.0.0.1:3000/";
 					console.log(data);
 				});
 
