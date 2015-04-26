@@ -25,6 +25,46 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http',
 			"navbar": "/views/navbar.html"
 		}
 
+		$scope.toggle = function(data){
+			if( $("#"+data).hasClass("unfavButton") ){
+				$scope.unfav(data);
+			}else if( $("#"+data).hasClass("favButton") ){
+				$scope.fav(data);
+			}
+		}
+
+		$scope.unfav = function(data){
+			var company_id = data;
+			var post_fav = {};
+
+			$http.get('http://128.199.105.21:8000/api/users/')
+			.success(function(data){
+				var temp = data;
+				var formData = new FormData();
+				formData.append("user_id",temp.id);
+				formData.append("company_id",company_id);
+
+				var req = {
+				 method: 'DELETE',
+				 url: 'http://128.199.105.21:8000/api/favorite/',
+				 headers: {
+				 },
+				 data: formData
+				} 
+				$http(req).success(function(data){
+					console.log(data);
+					$("#"+company_id).addClass("favButton");
+					$("#"+company_id).removeClass("unfavButton");
+				})
+				.error(function(data){
+					console.log(data);
+				})
+
+			})
+			.error(function(data){
+			});
+		}
+
 		$scope.fav = function(data){
 			var company_id = data;
 			var post_fav = {};
@@ -36,9 +76,14 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http',
 				post_fav.company_id = company_id;
 				$scope.user = post_fav;
 
+				console.log(post_fav);
 				$http.post('http://128.199.105.21:8000/api/favorite/',$scope.user)
 				.success(function(data){
 					console.log(data);
+					$("#"+company_id).removeClass("favButton");
+					$("#"+company_id).addClass("unfavButton");
+					$("#"+company_id).attr( "ng-click","unfav(stock.company_id)");
+
 				})
 				.error(function(data){
 					console.log(data);
@@ -63,17 +108,35 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http',
 			var companies = data;
 			$http.get('http://128.199.105.21:8000/api/lateststocks/').success(function(data) {
 				var stocks = data;
-				stocks.forEach(function(stock){
-					companies.forEach(function(company){
-						if(stock.company_id==company.id){
-							stock.company_name=company.name;
-							stock.symbol=company.symbol;
-						}
-					});
+				var ans = stocks.filter(function(stock){
+					for (var i = 0; i < companies.length; i++) {
+						if(companies[i].id == stock.company_id){
+							stock.company_name=companies[i].name;
+							stock.symbol=companies[i].symbol;
+							return true;
+						} 
+					};
 				});
-				$scope.stocks=stocks
+				$scope.stocks=ans
+
+				//change heart color
+				$http.get('http://128.199.105.21:8000/api/favorite/')
+				.success(function(data){
+					var favs = data;
+					favs.forEach(function(fav){
+						// console.log(fav.company_id);
+						$("#"+fav.company_id).removeClass("favButton");
+						$("#"+fav.company_id).addClass("unfavButton");
+						$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
+
+					});
+				})
+				.error(function(data){
+				});
+				//end
 			});
 		});
+
 	}
 ]);
 
@@ -310,49 +373,48 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http',
 			"navbar": "/views/navbar.html"
 		}
 
-		$http.get('http://128.199.105.21:8000/api/favorite/')
-		.success(function(data) {
-			var stocks = data;
-			var id = [];
-			var companies =[];
-			
-			//foreach to get list of company's id
-			stocks.forEach(function(stock){
-				id.push(stock.company_id);
-			});
+		$http.get('http://128.199.105.21:8000/api/lateststocks/')
+			.success(function(data){
+				var lastests = data;
 
-			//foreach to get list of company name from id array
-			id.forEach(function(i){
-
-				$http.get('http://128.199.105.21:8000/api/companies/'+i+'/')
-				.success(function(data){
-					var temp = data;
-
-					$http.get('http://128.199.105.21:8000/api/lateststocks/')
+				$http.get('http://128.199.105.21:8000/api/companies/')
 					.success(function(data){
-						var lastests = data;
+						var companies = data;
 
-						lastests.forEach(function(lastest){
-							if(lastest.company_id == temp.id)
-								{
-									companies.push({
-								  name: temp.name,
-								  company_id:temp.id,
-								  symbol: temp.symbol,
-								  close_price: lastest.close_price
-									});
-								}
-						});
+						$http.get('http://128.199.105.21:8000/api/favorite/')
+							.success(function(data){
+								var favs = data;
+
+								var a = companies.filter(function(company){
+									for (var i = 0; i < favs.length; i++) {
+										if(favs[i].company_id==company.id)
+											return true;
+									};
+								});
+
+								var ans = lastests.filter(function(lastest){
+									for (var i = 0; i < a.length; i++) {
+										if(a[i].id==lastest.company_id){
+											lastest.name= a[i].name;
+								  		lastest.company_id=a[i].id;
+								  		lastest.symbol= a[i].symbol;
+											return true;
+										}
+									};
+								});
+								console.log(ans);
+								$scope.favorite_stocks = ans;
+							})
+							.error(function(data){
+								console.log(data);
+							});
 					})
 					.error(function(data){
 						console.log(data);
 					});
-				})
-				.error(function(data){
-					console.log(data);
-				});
+			})
+			.error(function(data){
+				console.log(data);
 			});
-			$scope.favorite_stocks = companies;	
-		});
-	}
+	}	
 ]);

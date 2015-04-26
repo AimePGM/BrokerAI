@@ -39,7 +39,7 @@
 					<tbody class="stocks">
 						<tr ng-repeat="stock in stocks">
 							<th id="noborder">
-								<button ng-click="fav(stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
+								<button id="{{stock.company_id}}" ng-click="toggle(stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
 							</th>
 							<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{stock.symbol}}
 								<td style="position:relative;" class="col-md-5 col-lg-5-col-sm-5"><a href="/stocks/{{stock.company_id}}">{{stock.company_name}}<i class="fa fa-info-circle moreinfo"> </i></a>
