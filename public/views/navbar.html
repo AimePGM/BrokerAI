@@ -29,7 +29,7 @@
           </li>
           <li  ng-if="user != 'AnonymousUser : Please Login'" class="col-md-2 col-lg-2 col-sm-2">
             <a class="navbar-font">
-              <span class="glyphicon glyphicon-user navbar-font" style="display:inline-flex;"> {{user.username}}</span>
+              <span class="glyphicon glyphicon-user navbar-font" style="display:inline-flex;"> {{ user.username | limitTo: 8 }}{{user.username.length > 8 ? '...' : ''}}</span>
             </a>
           </li>
           <li ng-if="user != 'AnonymousUser : Please Login'" class="username-bar col-sm-2 col-md-2 col-lg-2">           
