@@ -1,3 +1,5 @@
+
+
 .index-content-wrapper{
 	padding-top:15vh;
 	text-align:center;
@@ -71,12 +73,13 @@
 	height:70px
 }
 .navbar-margin{
-	margin-top:10px
+	margin-top:10px;
+	background: #222;
 }
 .navbar-font{
 	font-size:18px;
 	color:#999;
-	text-align:center
+	text-align:center;
 }
 .navbar-font:hover{
 	color:#f2f2f2
@@ -90,17 +93,19 @@
 .navbar-inverse .navbar-brand{
 	font-size:30px;
 	color:#999;
-	border:1px solid #999
+	border:1px solid #999;
 }
 .navbar-inverse .navbar-brand:hover{
-	color:#f2f2f2
+	color:#f2f2f2;
 }
 .navbar-inverse .navbar-collapse{
-	background:#222
+	background:#222;
 }
-.navbar>.container .navbar-brand,.navbar>.container-fluid .navbar-brand{margin-left:20px}
+.navbar>.container .navbar-brand,.navbar>.container-fluid .navbar-brand{
+	margin-left:10px;
+}
 .main-content-wrapper{
-	padding-top:140px
+	padding-top:140px;
 }
 .main-content-wrapper hr{
 	color:#333;
@@ -280,4 +285,7 @@
 .table-info-pad{
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+.spin{
+	z-index: 1;
 }

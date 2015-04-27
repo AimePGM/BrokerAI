@@ -135,6 +135,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 				});
 				$scope.stocks=ans;
 				usSpinnerService.stop('spinner-1');
+				$("#hide").fadeIn();
 				//change heart color
 				$http.get('http://128.199.105.21:8000/api/favorite/')
 				.success(function(data){
@@ -182,6 +183,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 				$scope.lastest=lastest;
 				console.log(lastest);
 				usSpinnerService.stop('spinner-1');
+				$("#hide").fadeIn();
 
 		});
 
@@ -444,6 +446,7 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 								console.log(ans);
 								$scope.favorite_stocks = ans;
 								usSpinnerService.stop('spinner-1');
+								$("#hide").fadeIn();
 								$scope.companies = ans;
 
 							})
