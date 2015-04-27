@@ -137,6 +137,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 							return true;
 						} 
 					};
+					console.log('fetch daily complete');
 				});
 				
 				// day's info for using in html
@@ -175,6 +176,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 							return true;
 						} 
 					};
+					console.log('fetch weekly complete');
 				});
 				
 				// week's info for using in html
@@ -210,6 +212,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 							return true;
 						} 
 					};
+					console.log('fetch monthly complete');
 				});
 				// month's info for using in html
 				$scope.month_stocks=ans;
