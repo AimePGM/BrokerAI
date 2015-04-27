@@ -289,3 +289,11 @@
 .spin{
 	z-index: 1;
 }
+.line-graph-btn{
+  margin: 0;
+  color: #fff;
+  background: #222;
+  width: 100%;
+  border: 2px solid #111;
+  font-size: 14px;
+}

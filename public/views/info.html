@@ -17,14 +17,21 @@
 				<div class="row col-md-4 col-lg-4 col-sm-12">
 					<div data-toggle="buttons" class="btn-group btn-group-options">
 						<label class="btn btn-darkgrey active">
-							<input id="daily" type="radio" name="predict" autocomplete="off" checked> Daily
+							<input id="daily" value="d" type="radio" name="predict" autocomplete="off" checked> Daily
 						</label>
 						<label class="btn btn-darkgrey">
-							<input id="weekly" type="radio" name="predict" autocomplete="off"> Weekly</label>
+							<input id="weekly" value="w" type="radio" name="predict" autocomplete="off"> Weekly</label>
 								<label class="btn btn-darkgrey">
-									<input id="monthly" type="radio" name="predict" autocomplete="off"> Monthly
+									<input id="monthly" value="m" type="radio" name="predict" autocomplete="off"> Monthly
 								</label>
 					</div>
+				<div>
+						<label class="btn line-graph-btn">
+							<a href="#line" target = "" id="line_btn" style="color: #fff; text-decoration:none;">LINE CHART</a>
+						</label>
+						
+					
+				</div>
 				</div>
 			</div>
 			<div class="row col-md-12 col-lg-12 col-sm-12">
@@ -35,7 +42,9 @@
 					<table class="table-bordered table-info-pad">
 					<thead>
 						<tr>
-							<th colspan="2">YESTERDAY</th>
+							<th id="dayhishead" colspan="2">PREVIOUS DAY</th>
+							<th id="weekhishead" colspan="2" style="display: none;">PREVIOUS WEEK</th>
+							<th id="monthhishead" colspan="2" style="display: none;">PREVIOUS MONTH</th>
 						</tr>
 						<tbody>
 								<tr>
@@ -66,14 +75,27 @@
 					<table class="table-bordered table-info-pad" style="height: 248px;">
 					<thead>
 						<tr>
-							<th>TODAY PREDICTION</th>
+							<th id="dayprehead" colspan="2">TODAY PREDICTION</th>
+							<th id="weekprehead" style="display: none;" colspan="2">THIS WEEK PREDICTION</th>
+							<th id="monthprehead" style="display: none;" colspan="2">THIS MONTH PREDICTION</th>
 						</tr>
 						<tbody>
-								<tr>
-									<th class="predict-value-wrapper up-on-white" style="font-size: 80px;">
-									<li class="fa fa-caret-up"> 22222222</li></th>
-									
+							<tr id="daypre">
+									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">
+										<li class="fa fa-caret-up"> <b>24.96</b></li></th></th>
+									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">1.02%</th>
 								</tr>
+							<tr id="weekpre" style="display: none;">
+									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">
+										<li class="fa fa-caret-up"> <b>27.96</b></li></th></th>
+									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">2402%</th>
+								</tr>
+								<tr id="monthpre" style="display: none;">
+									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">
+										<li class="fa fa-caret-up"> <b>20.96</b></li></th></th>
+									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">3.02%</th>
+								</tr>
+								
 						</tbody>
 					</thead>
 				</table>
@@ -85,24 +107,60 @@
 			</div>
 			<div class="row">
 				<div class="col-md-8">
-					<div class="col-md-7">
-						<h1 id="line">LINE CHART</h1>
+					<div id="line" class="col-md-7">
+						<h1>LINE CHART</h1>
 					</div>
 					
 				</div>
-				<div class="col-md-4 graphtab">
-					<div class="btn-group btn-group-justified">
-						<a href="#line" role="group" type="button" class="btn btn-default" id="line_btn">LINE</a>
-						<a href="#candle" role="group" type="button" class="btn btn-default">CANDLE STICK  </a>
-					</div>
-				</div>
+				
 			</div>
 			<div id="linechart" class="chartdiv"></div>
-			<hr>
-			<div class="row col-md-8">
-					<h1 id="candle">CANDLE STICK CHART</h1>
-			</div>
-			<div id="candlestick" class="chartdiv"></div>
+			
+			
 		</div>
 	</section>
 </div>
+
+ <script> 
+$(document).ready(function(){
+  
+  $("input[name='predict']").change(function(){
+    if($("input[name='predict']:checked").val()==='d'){
+    $("#dayhishead").show();
+    $("#weekhishead").hide();
+    $("#monthhishead").hide();
+    $("#dayprehead").show();
+    $("#weekprehead").hide();
+    $("#monthprehead").hide();
+    $("#daypre").show();
+    $("#weekpre").hide();
+    $("#monthpre").hide();
+    }
+    if($("input[name='predict']:checked").val()==='w'){
+    $("#dayhishead").hide();
+    $("#weekhishead").show();
+    $("#monthhishead").hide();
+    $("#dayprehead").hide();
+    $("#weekprehead").show();
+    $("#monthprehead").hide();
+    $("#daypre").hide();
+    $("#weekpre").show();
+    $("#monthpre").hide();
+    }
+
+    if($("input[name='predict']:checked").val()==='m'){
+    $("#dayhishead").hide();
+    $("#weekhishead").hide();
+    $("#monthhishead").show();
+    $("#dayprehead").hide();
+    $("#weekprehead").hide();
+    $("#monthprehead").show();
+    $("#daypre").hide();
+    $("#weekpre").hide();
+    $("#monthpre").show();
+    }
+});
+
+
+});
+</script> 
