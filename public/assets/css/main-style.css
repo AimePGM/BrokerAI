@@ -286,3 +286,6 @@
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+.spin{
+	z-index: 1;
+}
