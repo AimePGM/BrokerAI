@@ -262,3 +262,22 @@
 .favButton:hover{
 	color:red
 }
+.info-prediction-wrapper{
+	text-align: center;
+}
+.predict-time-wrapper{
+	font-size: 20px; 
+}
+.predict-value-wrapper{
+	font-size: 100px; 
+}
+.up-on-white{
+	color: #088A08;
+}
+.down-on-white{
+	color: #B40404;
+}
+.table-info-pad{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}

@@ -21,29 +21,60 @@
 					</div>
 				</div>
 			</div>
+			<div class="row col-md-12 col-lg-12 col-sm-12">
+					<hr>
+			</div>
 			<div class="content">
-				<table class="table-bordered">
+				<div class="col-md-6 col-lg-6 col-sm-12">
+					<table class="table-bordered table-info-pad">
 					<thead>
 						<tr>
-							<th>HIGH</th>
-								<th>LOW</th>
-								<th>OPEN</th>
-								<th>CLOSE</th>
-								<th>CHANGE NET / %</th>
+							<th colspan="2">YESTERDAY</th>
 						</tr>
 						<tbody>
 								<tr>
-									<th>{{lastest.high_price | number:3}}</th>
-									<th>{{lastest.low_price | number:3}}</th>
-									<th>{{lastest.close_price | number:3}}</th>
-									<th>{{lastest.open_price | number:3}}</th>
-									<th>asasas</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">High</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.high_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Low</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.low_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Open</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.open_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Close</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.close_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Volume</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.volume | number:3}}</th>
 								</tr>
 						</tbody>
 					</thead>
 				</table>
+				</div>
+				<div class="col-md-6 col-lg-6 col-sm-12 info-prediction-wrapper">
+					<table class="table-bordered table-info-pad" style="height: 248px;">
+					<thead>
+						<tr>
+							<th>TODAY PREDICTION</th>
+						</tr>
+						<tbody>
+								<tr>
+									<th class="predict-value-wrapper up-on-white" style="font-size: 80px;">
+									<li class="fa fa-caret-up"> 22222222</li></th>
+									
+								</tr>
+						</tbody>
+					</thead>
+				</table>
+				</div>
+				
 			</div>
-			<div class="row">
+			<div class="row col-md-12 col-lg-12 col-sm-12">
 					<hr>
 			</div>
 			<div class="row">
