@@ -5,6 +5,7 @@ stockControllers.controller('NavbarCtrl',['$scope', '$http','$window',
 		$http.get('http://128.199.105.21:8000/api/users/')
 		.success(function(data){
 				$scope.user = data;
+				console.log(data);
 		})
 		.error(function(data, headers){
 			console.log(data);

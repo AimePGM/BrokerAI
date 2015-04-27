@@ -27,13 +27,16 @@
           <li class="col-md-2 col-sm-2 col-lg-2">
             <a href="/simulator" class="navbar-font">SIMULATOR</a>
           </li>
-          <li class="col-md-2 col-sm-2 col-lg-2">
+          <li  ng-if="user != 'AnonymousUser : Please Login'" class="col-md-2 col-sm-2 col-lg-2">
             <a class="navbar-font">
               <span class="glyphicon glyphicon-user navbar-font"> {{user.username}}</span>
             </a>
           </li>
-          <li class="username-bar col-md-2 col-sm-2 col-lg-2">           
+          <li ng-if="user != 'AnonymousUser : Please Login'" class="username-bar col-md-2 col-sm-2 col-lg-2">           
               <a ng-click="logout()" class="navbar-font">Logout</a>
+          </li>
+          <li ng-if="user == 'AnonymousUser : Please Login'" class="username-bar col-md-2 col-sm-2 col-lg-2">           
+              <a href="/" class="navbar-font">Login</a>
           </li>
           
         </ul>
