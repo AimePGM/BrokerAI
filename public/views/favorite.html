@@ -46,7 +46,7 @@
 												<tbody class="favorite_stocks">
 														<tr ng-repeat="fav in favorite_stocks">
 																<th id="noborder">
-																		<button class="unfavButton noBgButton fa fa-heart down"></button>
+																		<button id="{{fav.company_id}}" ng-click="unfav(fav.company_id)" class="unfavButton noBgButton fa fa-heart down"></button>
 																</th>
 																<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{fav.symbol}}
 																</th>

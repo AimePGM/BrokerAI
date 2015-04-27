@@ -539,6 +539,33 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 			"navbar": "/views/navbar.html"
 		}
 
+		$scope.unfav = function(data){
+			var company_id = data;
+
+			$http.get('http://128.199.105.21:8000/api/users/')
+			.success(function(data){
+				var temp = data;
+				var formData = new FormData();
+				formData.append("user_id",temp.id);
+				formData.append("company_id",company_id);
+
+				var req = {
+				 method: 'DELETE',
+				 url: 'http://128.199.105.21:8000/api/favorite/',
+				 headers: {
+				 },
+				 data: formData
+				}
+				$http(req).success(function(data){
+					console.log(data);
+					$("#"+company_id).parent().parent().remove();
+				})
+				.error(function(data){
+					console.log(data);
+				});
+		});
+		}
+
 		$http.get('http://128.199.105.21:8000/api/users/')
 		.success(function(data){
 		})
