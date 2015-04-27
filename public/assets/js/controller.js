@@ -129,7 +129,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 						} 
 					};
 				});
-				$scope.stocks=ans
+				$scope.stocks=ans;
 				usSpinnerService.stop('spinner-1');
 				//change heart color
 				$http.get('http://128.199.105.21:8000/api/favorite/')
@@ -172,6 +172,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 						lastest.close_price = stock.close_price;
 						lastest.high_price = stock.high_price;
 						lastest.low_price = stock.low_price;
+						lastest.volume = stock.volume;
 					}
 				});
 				$scope.lastest=lastest;
@@ -388,6 +389,13 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 			"navbar": "/views/navbar.html"
 		}
 
+		$scope.searchResult = function(){
+			if(typeof $scope.selectedCompany === "undefined")
+				return;
+			window.location = "http://127.0.0.1:3000/stocks/"+$scope.selectedCompany.description.company_id+'/'
+			console.log($scope.selectedCompany);
+		}
+
 		$http.get('http://128.199.105.21:8000/api/lateststocks/')
 			.success(function(data){
 				var lastests = data;
@@ -420,6 +428,7 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 								console.log(ans);
 								$scope.favorite_stocks = ans;
 								usSpinnerService.stop('spinner-1');
+								$scope.companies = ans;
 
 							})
 							.error(function(data){
