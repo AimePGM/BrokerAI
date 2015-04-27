@@ -12,12 +12,12 @@
 				</div>
 				<div class="row col-md-4 col-lg-4 col-sm-12">
 					<div data-toggle="buttons" class="btn-group btn-group-options">
-						<label class="btn btn-darkgrey active">
-							<input id="daily" type="radio" name="predict" value="d" autocomplete="off" checked> Daily</input></label>
-						<label class="btn btn-darkgrey">
-							<input id="weekly" type="radio" name="predict" value="w" autocomplete="off"> Weekly</input></label>
-						<label class="btn btn-darkgrey">
-							<input id="monthly" type="radio" name="predict" value="m" autocomplete="off"> Monthly</input></label>
+						<label ng-click="getLatestStocks('day')" class="btn btn-darkgrey active">
+							<input id="daily" type="radio" name="predict" autocomplete="off" checked> Daily</input></label>
+						<label ng-click="getLatestStocks('week')" class="btn btn-darkgrey">
+							<input id="weekly" type="radio" name="predict" autocomplete="off"> Weekly</input></label>
+						<label ng-click="getLatestStocks('month')" class="btn btn-darkgrey">
+							<input id="monthly" type="radio" name="predict" autocomplete="off"> Monthly</input></label>
 					</div>
 				</div>
 			</div>
@@ -43,20 +43,20 @@
 					</thead>
 					<!--day-->
 					<tbody class="stocks day">
-						<tr ng-repeat="day_stock in day_stocks">
+						<tr ng-repeat="stock in stocks">
 							<th id="noborder">
-								<button id="{{day_stock.company_id}}" ng-click="toggle(day_stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
+								<button id="{{stock.company_id}}" ng-click="toggle(stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
 							</th>
-							<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{day_stock.symbol}}
-								<td style="position:relative;" class="col-md-5 col-lg-5-col-sm-5"><a href="/stocks/{{day_stock.company_id}}">{{day_stock.company_name}}<i class="fa fa-info-circle moreinfo"> </i></a>
+							<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{stock.symbol}}
+								<td style="position:relative;" class="col-md-5 col-lg-5-col-sm-5"><a href="/stocks/{{stock.company_id}}">{{stock.company_name}}<i class="fa fa-info-circle moreinfo"> </i></a>
 								</td>
 
-								<td class="col-md-2 col-lg-2-col-sm-2">{{day_stock.close_price | number:4}}</td>
-								<td ng-if="stock.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{day_stock.daily_predict_price}}
-									<li class="fa fa-caret-down"> {{day_stock.daily_predict_percent}}</li>
+								<td class="col-md-2 col-lg-2-col-sm-2">{{stock.high_price | number:3}}</td>
+								<td ng-if="stock.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{stock.daily_predict_price}}
+									<li class="fa fa-caret-down"> {{stock.daily_predict_percent}}</li>
 								</td>
-								<td ng-if="stock.daily_predict==='up'" class="col-md-3 col-lg-3-col-sm-3 up">{{day_stock.daily_predict_price}}
-									<li class="fa fa-caret-up"> {{day_stock.daily_predict_percent}}</li>
+								<td ng-if="stock.daily_predict==='up'" class="col-md-3 col-lg-3-col-sm-3 up">{{stock.daily_predict_price}}
+									<li class="fa fa-caret-up"> {{stock.daily_predict_percent}}</li>
 								</td>
 								
 

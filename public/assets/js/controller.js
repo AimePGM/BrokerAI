@@ -117,127 +117,64 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 			console.log(headers);
 		});
 
+		$scope.getLatestStocks = function(get_type) {
+			usSpinnerService.spin('spinner-1');
+			$("#hide").hide();
+			console.log(get_type)
+			if(get_type != "week" && get_type != "month") {
+				get_type = "day"
+			}
 
-		$scope.getLatestStocks = function() {
-		
-			$http.get('http://128.199.105.21:8000/api/companies/').success(function(data) {
-			var companies = data;
-			$scope.companies = companies;
-			
+			$http.get('http://128.199.105.21:8000/api/companies/')
+			.success(function(data) {
+				var companies = data;
+				$scope.companies = companies;
 
-			//day all stocks load
-			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=day').success(function(data) {
-				var stocks = data;
-				console.log('fetching data --> daily');
-				var ans = stocks.filter(function(stock){
-					for (var i = 0; i < companies.length; i++) {
-						if(companies[i].id == stock.company_id){
-							stock.company_name=companies[i].name;
-							stock.symbol=companies[i].symbol;
-							return true;
-						} 
-					};
-					console.log('fetch daily complete');
-				});
-				
-				// day's info for using in html
-				$scope.day_stocks=ans;
+				$http.get('http://128.199.105.21:8000/api/lateststocks/?type='+get_type)
+				.success(function(data) {
+					var stocks = data;
+					var ans = stocks.filter(function(stock){
+						for (var i = 0; i < companies.length; i++)
+						{
+							if(companies[i].id == stock.company_id)
+							{
+								stock.company_name=companies[i].name;
+								stock.symbol=companies[i].symbol;
+								return true;
+							}
+						}
+					});
 
-				usSpinnerService.stop('spinner-1');
-				$("#hide").show();
+					$scope.stocks=ans;
+					usSpinnerService.stop('spinner-1');
+					$("#hide").fadeIn();
 
-				//change heart color
-				$http.get('http://128.199.105.21:8000/api/favorite/')
-				.success(function(data){
-					var favs = data;
-					favs.forEach(function(fav){
-						console.log(fav.company_id);
-						$("#"+fav.company_id).removeClass("favButton");
-						$("#"+fav.company_id).addClass("unfavButton");
-						$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
+					//change heart color
+					$http.get('http://128.199.105.21:8000/api/favorite/')
+					.success(function(data){
+						var favs = data;
+						favs.forEach(function(fav){
+							// console.log(fav.company_id);
+							$("#"+fav.company_id).removeClass("favButton");
+							$("#"+fav.company_id).addClass("unfavButton");
+							$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
 
+						});
+
+					})
+					.error(function(data){
 					});
 
 				})
 				.error(function(data){
+
 				});
-				//end
-			});//day all stocks load end
+			})
+			.error(function(data){
+			});
+		}
 
-			//week all stocks load
-			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=week').success(function(data) {
-				var stocks = data;
-				console.log('fetching data --> weekly');
-				var ans = stocks.filter(function(stock){
-					for (var i = 0; i < companies.length; i++) {
-						if(companies[i].id == stock.company_id){
-							stock.company_name=companies[i].name;
-							stock.symbol=companies[i].symbol;
-							return true;
-						} 
-					};
-					console.log('fetch weekly complete');
-				});
-				
-				// week's info for using in html
-				$scope.week_stocks=ans;
-
-				$http.get('http://128.199.105.21:8000/api/favorite/')
-				.success(function(data){
-					var favs = data;
-					favs.forEach(function(fav){
-						console.log(fav.company_id);
-						$("#"+fav.company_id).removeClass("favButton");
-						$("#"+fav.company_id).addClass("unfavButton");
-						$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
-
-					});
-
-				})
-				.error(function(data){
-				});
-				
-				//end
-			});//week all stocks load end
-
-			//month all stocks load
-			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=month').success(function(data) {
-				var stocks = data;
-				console.log('fetching data --> monthly');
-				var ans = stocks.filter(function(stock){
-					for (var i = 0; i < companies.length; i++) {
-						if(companies[i].id == stock.company_id){
-							stock.company_name=companies[i].name;
-							stock.symbol=companies[i].symbol;
-							return true;
-						} 
-					};
-					console.log('fetch monthly complete');
-				});
-				// month's info for using in html
-				$scope.month_stocks=ans;
-
-				$http.get('http://128.199.105.21:8000/api/favorite/')
-				.success(function(data){
-					var favs = data;
-					favs.forEach(function(fav){
-						console.log(fav.company_id);
-						$("#"+fav.company_id).removeClass("favButton");
-						$("#"+fav.company_id).addClass("unfavButton");
-						$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
-
-					});
-
-				})
-				.error(function(data){
-				});
-				
-				//end
-			});//month all stocks load end
-
-		});
-	}
-	 $scope.getLatestStocks("day");
+	$scope.getLatestStocks("day");
 
 	}
 ]);
@@ -433,7 +370,6 @@ stockControllers.controller('LoginCtrl',['$scope','$http','$window',
 			});
 		};
 	}
-
 
 ]);
 
