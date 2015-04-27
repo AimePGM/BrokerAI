@@ -186,15 +186,18 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=day').success(function(data) {
 					var stocks = data;
 					var day_lastest ={};
-					stocks.forEach(function(stock){
-						if(stock.company_id==$routeParams.stockID && inLoop){
+					for(var i = 0; i < stocks.length; i++){ 
+						var stock = stocks[i];
+						if(stock.company_id==$routeParams.stockID){
 							day_lastest.open_price = stock.open_price;
 							day_lastest.close_price = stock.close_price;
 							day_lastest.high_price = stock.high_price;
 							day_lastest.low_price = stock.low_price;
 							day_lastest.volume = stock.volume;
+							break;
 						}
-					});
+					}
+					
 					$scope.day_lastest=day_lastest;
 					console.log(day_lastest);
 					usSpinnerService.stop('spinner-1');
@@ -206,8 +209,8 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=week').success(function(data) {
 					var stocks = data;
 					var week_lastest ={};
-
-					stocks.forEach(function(stock){
+					for(var i = 0; i < stocks.length; i++){ 
+						var stock = stocks[i];
 						if(stock.company_id==$routeParams.stockID){
 							week_lastest.open_price = stock.open_price;
 							week_lastest.close_price = stock.close_price;
@@ -216,7 +219,8 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 							week_lastest.volume = stock.volume;
 							
 						}
-					});
+					}
+					
 					$scope.week_lastest=week_lastest;
 					console.log(week_lastest);
 					
@@ -227,7 +231,8 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=month').success(function(data) {
 					var stocks = data;
 					var month_lastest ={};
-					stocks.forEach(function(stock){
+					for(var i = 0; i < stocks.length; i++){ 
+						var stock = stocks[i];
 						if(stock.company_id==$routeParams.stockID){
 							month_lastest.open_price = stock.open_price;
 							month_lastest.close_price = stock.close_price;
@@ -236,7 +241,8 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 							month_lastest.volume = stock.volume;
 							
 						}
-					});
+					}
+					
 					$scope.month_lastest=month_lastest;
 					console.log(month_lastest);
 					
