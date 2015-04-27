@@ -15,11 +15,11 @@
 										
 										<div class="row col-md-4 col-lg-4 col-sm-12">
 												<div data-toggle="buttons" class="btn-group btn-group-options">
-														<label class="btn btn-darkgrey active">
+														<label ng-click="getLatestStocks('day')" class="btn btn-darkgrey active">
 																<input id="daily" type="radio" name="predict" autocomplete="off" checked> Daily</label>
-														<label class="btn btn-darkgrey">
+														<label ng-click="getLatestStocks('week')" class="btn btn-darkgrey">
 																<input id="weekly" type="radio" name="predict" autocomplete="off"> Weekly</label>
-														<label class="btn btn-darkgrey">
+														<label ng-click="getLatestStocks('month')" class="btn btn-darkgrey">
 																<input id="monthly" type="radio" name="predict" autocomplete="off"> Monthly</label>
 												</div>
 										</div>

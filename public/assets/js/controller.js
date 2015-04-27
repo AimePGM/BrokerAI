@@ -434,52 +434,60 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 			console.log($scope.selectedCompany);
 		}
 
-		$http.get('http://128.199.105.21:8000/api/lateststocks/')
-			.success(function(data){
-				var lastests = data;
+		$scope.getLatestStocks = function(get_type) {
+			console.log(get_type)
+			if(get_type != "week" && get_type != "month") {
+				get_type = "day"
+			}
 
-				$http.get('http://128.199.105.21:8000/api/companies/')
-					.success(function(data){
-						var companies = data;
+			$http.get('http://128.199.105.21:8000/api/lateststocks/?type='+get_type)
+				.success(function(data){
+					var lastests = data;
 
-						$http.get('http://128.199.105.21:8000/api/favorite/')
-							.success(function(data){
-								var favs = data;
+					$http.get('http://128.199.105.21:8000/api/companies/')
+						.success(function(data){
+							var companies = data;
 
-								var a = companies.filter(function(company){
-									for (var i = 0; i < favs.length; i++) {
-										if(favs[i].company_id==company.id)
-											return true;
-									};
+							$http.get('http://128.199.105.21:8000/api/favorite/')
+								.success(function(data){
+									var favs = data;
+
+									var a = companies.filter(function(company){
+										for (var i = 0; i < favs.length; i++) {
+											if(favs[i].company_id==company.id)
+												return true;
+										};
+									});
+
+									var ans = lastests.filter(function(lastest){
+										for (var i = 0; i < a.length; i++) {
+											if(a[i].id==lastest.company_id){
+												lastest.name= a[i].name;
+									  		lastest.company_id=a[i].id;
+									  		lastest.symbol= a[i].symbol;
+												return true;
+											}
+										};
+									});
+									console.log(ans);
+									$scope.favorite_stocks = ans;
+									usSpinnerService.stop('spinner-1');
+									$("#hide").fadeIn();
+									$scope.companies = ans;
+
+								})
+								.error(function(data){
+									console.log(data);
 								});
-
-								var ans = lastests.filter(function(lastest){
-									for (var i = 0; i < a.length; i++) {
-										if(a[i].id==lastest.company_id){
-											lastest.name= a[i].name;
-								  		lastest.company_id=a[i].id;
-								  		lastest.symbol= a[i].symbol;
-											return true;
-										}
-									};
-								});
-								console.log(ans);
-								$scope.favorite_stocks = ans;
-								usSpinnerService.stop('spinner-1');
-								$("#hide").fadeIn();
-								$scope.companies = ans;
-
-							})
-							.error(function(data){
-								console.log(data);
-							});
-					})
-					.error(function(data){
-						console.log(data);
-					});
-			})
-			.error(function(data){
-				console.log(data);
-			});
+						})
+						.error(function(data){
+							console.log(data);
+						});
+				})
+				.error(function(data){
+					console.log(data);
+				});
+		}
+		$scope.getLatestStocks("day")
 	}	
 ]);
