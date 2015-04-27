@@ -24,8 +24,7 @@ stockControllers.controller('NavbarCtrl',['$scope', '$http','$window',
 ]);
 
 stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerService',
-	function($scope, $http, usSpinnerService) {
-
+	function($scope, $http, usSpinnerService) {		
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
@@ -118,12 +117,19 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 			console.log(headers);
 		});
 
-		$http.get('http://128.199.105.21:8000/api/companies/').success(function(data) {
+		$scope.getLatestStocks = function(get_type) {
+			console.log(get_type)
+			if(get_type != "week" && get_type != "month") {
+				get_type = "day"
+			}
+
+			$http.get('http://128.199.105.21:8000/api/companies/').success(function(data) {
 			var companies = data;
 			$scope.companies = companies;
-
-			$http.get('http://128.199.105.21:8000/api/lateststocks/').success(function(data) {
+			console.log(get_type);
+			$http.get('http://128.199.105.21:8000/api/lateststocks/?type='+get_type).success(function(data) {
 				var stocks = data;
+							console.log(get_type);
 				var ans = stocks.filter(function(stock){
 					for (var i = 0; i < companies.length; i++) {
 						if(companies[i].id == stock.company_id){
@@ -133,6 +139,8 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 						} 
 					};
 				});
+							console.log(get_type);
+
 				$scope.stocks=ans;
 				usSpinnerService.stop('spinner-1');
 				$("#hide").fadeIn();
@@ -154,6 +162,8 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 				//end
 			});
 		});
+	}
+	$scope.getLatestStocks("day");
 
 	}
 ]);
@@ -167,25 +177,34 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			$scope.stock = data;
 		});
 
-		//lastest stock data
-		$http.get('http://128.199.105.21:8000/api/lateststocks/').success(function(data) {
-				var stocks = data;
-				var lastest ={};
-				stocks.forEach(function(stock){
-					if(stock.company_id==$routeParams.stockID){
-						lastest.open_price = stock.open_price;
-						lastest.close_price = stock.close_price;
-						lastest.high_price = stock.high_price;
-						lastest.low_price = stock.low_price;
-						lastest.volume = stock.volume;
-					}
-				});
-				$scope.lastest=lastest;
-				console.log(lastest);
-				usSpinnerService.stop('spinner-1');
-				$("#hide").fadeIn();
+		$scope.getLatestStocks = function(get_type) {
+			console.log(get_type)
+			if(get_type != "week" && get_type != "month") {
+				get_type = "day"
+			}
 
-		});
+			//lastest stock data
+			$http.get('http://128.199.105.21:8000/api/lateststocks/?type='+get_type).success(function(data) {
+					var stocks = data;
+					var lastest ={};
+					stocks.forEach(function(stock){
+						if(stock.company_id==$routeParams.stockID){
+							lastest.open_price = stock.open_price;
+							lastest.close_price = stock.close_price;
+							lastest.high_price = stock.high_price;
+							lastest.low_price = stock.low_price;
+							lastest.volume = stock.volume;
+						}
+					});
+					$scope.lastest=lastest;
+					console.log(lastest);
+					usSpinnerService.stop('spinner-1');
+					$("#hide").fadeIn();
+
+			});
+
+		}
+		$scope.getLatestStocks("day");
 
 		//line chart
 		$http.get('http://128.199.105.21:8000/api/stocks/'+$routeParams.stockID+'/')
@@ -294,6 +313,7 @@ stockControllers.controller('LoginCtrl',['$scope','$http','$window',
 			});
 		};
 	}
+
 
 ]);
 

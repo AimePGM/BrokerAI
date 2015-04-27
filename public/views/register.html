@@ -2,11 +2,11 @@
 	<div class="container index-content-wrapper">
 		<h1>Registration</h1>
 		<div class="login-wrapper">
-			<form ng-submit="processUser()">
+			<form name="form" ng-submit="processUser()">
 				<div class="panel panel-login">
 					<div class="row">
 						<div class="col-md-6">
-							<input type="text" ng-model="user.first_name" placeholder="Firstname" class="form-control" required/>
+							<input name="first_name" type="text" ng-model="user.first_name" placeholder="Firstname" class="form-control" required/>
 						</div>
 						<div class="col-md-6">
 							<input type="text" ng-model="user.last_name" placeholder="Lastname" class="form-control" required/>
@@ -24,12 +24,14 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<input type="password" name="password" ng-model="user.password" placeholder="Password" class="form-control" required/>
+							<input ng-minlenght="5" type="password" name="password" ng-model="user.password" placeholder="Password" class="form-control" required/>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<input type="password" name="repeatPassword" id="repeatPassword" placeholder="Conform Password" class="form-control" ng-model="user.repeatPassword" repeat-password="password" required/>
+							<input ng-minlenght="5" type="password" name="repeatPassword" id="repeatPassword" placeholder="Conform Password" class="form-control" ng-model="user.repeatPassword" repeat-password="password" required/>
+							<p style="color:red;" ng-if="!form.repeatPassword.$valid"> Passwords does not match</p>
+							<p style="color:green;" ng-if="form.repeatPassword.$valid"> Passwords does match</p>
 						</div>
 					</div>
 					<div class="row">
