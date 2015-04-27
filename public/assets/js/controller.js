@@ -27,7 +27,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 		}
 
 		$scope.searchResult = function(){
-			if($scope.selectedCompany == undefined)
+			if(typeof $scope.selectedCompany === "undefined")
 				return;
 			window.location = "http://127.0.0.1:3000/stocks/"+$scope.selectedCompany.description.id+'/'
 			console.log($scope.selectedCompany);
