@@ -119,6 +119,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 
 		$scope.getLatestStocks = function(get_type) {
 			usSpinnerService.spin('spinner-1');
+			$("#fetching").show();
 			$("#hide").hide();
 			console.log(get_type)
 			if(get_type != "week" && get_type != "month") {
@@ -147,6 +148,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 
 					$scope.stocks=ans;
 					usSpinnerService.stop('spinner-1');
+					$("#fetching").hide();
 					$("#hide").fadeIn();
 
 					//change heart color
@@ -212,6 +214,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 					$scope.day_lastest=day_lastest;
 					console.log(day_lastest);
 					usSpinnerService.stop('spinner-1');
+					$("#fetching").hide();
 			 		$("#hide").fadeIn();
 
 			});
@@ -518,7 +521,10 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 		}
 
 		$scope.getLatestStocks = function(get_type) {
-			console.log(get_type)
+			console.log(get_type);
+			usSpinnerService.spin('spinner-1');
+			$("#fetching").show();
+			$("#hide").hide();
 			if(get_type != "week" && get_type != "month") {
 				get_type = "day"
 			}
@@ -555,6 +561,7 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 									console.log(ans);
 									$scope.favorite_stocks = ans;
 									usSpinnerService.stop('spinner-1');
+									$("#fetching").hide();
 									$("#hide").fadeIn();
 									$scope.companies = ans;
 
