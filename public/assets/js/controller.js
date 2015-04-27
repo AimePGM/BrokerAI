@@ -117,19 +117,18 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 			console.log(headers);
 		});
 
-		$scope.getLatestStocks = function(get_type) {
-			console.log(get_type)
-			if(get_type != "week" && get_type != "month") {
-				get_type = "day"
-			}
 
+		$scope.getLatestStocks = function() {
+		
 			$http.get('http://128.199.105.21:8000/api/companies/').success(function(data) {
 			var companies = data;
 			$scope.companies = companies;
-			console.log(get_type);
-			$http.get('http://128.199.105.21:8000/api/lateststocks/?type='+get_type).success(function(data) {
+			
+
+			//day all stocks load
+			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=day').success(function(data) {
 				var stocks = data;
-							console.log(get_type);
+				console.log('fetching data --> daily');
 				var ans = stocks.filter(function(stock){
 					for (var i = 0; i < companies.length; i++) {
 						if(companies[i].id == stock.company_id){
@@ -139,17 +138,19 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 						} 
 					};
 				});
-							console.log(get_type);
+				
+				// day's info for using in html
+				$scope.day_stocks=ans;
 
-				$scope.stocks=ans;
 				usSpinnerService.stop('spinner-1');
-				$("#hide").fadeIn();
+				$("#hide").show();
+
 				//change heart color
 				$http.get('http://128.199.105.21:8000/api/favorite/')
 				.success(function(data){
 					var favs = data;
 					favs.forEach(function(fav){
-						// console.log(fav.company_id);
+						console.log(fav.company_id);
 						$("#"+fav.company_id).removeClass("favButton");
 						$("#"+fav.company_id).addClass("unfavButton");
 						$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
@@ -160,10 +161,80 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 				.error(function(data){
 				});
 				//end
-			});
+			});//day all stocks load end
+
+			//week all stocks load
+			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=week').success(function(data) {
+				var stocks = data;
+				console.log('fetching data --> weekly');
+				var ans = stocks.filter(function(stock){
+					for (var i = 0; i < companies.length; i++) {
+						if(companies[i].id == stock.company_id){
+							stock.company_name=companies[i].name;
+							stock.symbol=companies[i].symbol;
+							return true;
+						} 
+					};
+				});
+				
+				// week's info for using in html
+				$scope.week_stocks=ans;
+
+				$http.get('http://128.199.105.21:8000/api/favorite/')
+				.success(function(data){
+					var favs = data;
+					favs.forEach(function(fav){
+						console.log(fav.company_id);
+						$("#"+fav.company_id).removeClass("favButton");
+						$("#"+fav.company_id).addClass("unfavButton");
+						$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
+
+					});
+
+				})
+				.error(function(data){
+				});
+				
+				//end
+			});//week all stocks load end
+
+			//month all stocks load
+			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=month').success(function(data) {
+				var stocks = data;
+				console.log('fetching data --> monthly');
+				var ans = stocks.filter(function(stock){
+					for (var i = 0; i < companies.length; i++) {
+						if(companies[i].id == stock.company_id){
+							stock.company_name=companies[i].name;
+							stock.symbol=companies[i].symbol;
+							return true;
+						} 
+					};
+				});
+				// month's info for using in html
+				$scope.month_stocks=ans;
+
+				$http.get('http://128.199.105.21:8000/api/favorite/')
+				.success(function(data){
+					var favs = data;
+					favs.forEach(function(fav){
+						console.log(fav.company_id);
+						$("#"+fav.company_id).removeClass("favButton");
+						$("#"+fav.company_id).addClass("unfavButton");
+						$("#"+fav.company_id).attr( "ng-click","unfav(stock.company_id)");
+
+					});
+
+				})
+				.error(function(data){
+				});
+				
+				//end
+			});//month all stocks load end
+
 		});
 	}
-	$scope.getLatestStocks("day");
+	 $scope.getLatestStocks("day");
 
 	}
 ]);
