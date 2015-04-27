@@ -16,13 +16,13 @@
 
 				<div class="row col-md-4 col-lg-4 col-sm-12">
 					<div data-toggle="buttons" class="btn-group btn-group-options">
-
-						<label ng-click="getLatestStocks('day')" class="btn btn-darkgrey active">
+<!--ng-click="getLatestStocks('day')"-->
+						<label  class="btn btn-darkgrey active">
 							<input id="daily" value="d" type="radio" name="predict" autocomplete="off" checked> Daily
 						</label>
-						<label ng-click="getLatestStocks('week')" class="btn btn-darkgrey">
+						<label class="btn btn-darkgrey">
 							<input id="weekly" value="w" type="radio" name="predict" autocomplete="off"> Weekly</label>
-								<label ng-click="getLatestStocks('month')" class="btn btn-darkgrey">
+								<label class="btn btn-darkgrey">
 									<input id="monthly" value="m" type="radio" name="predict" autocomplete="off"> Monthly
 								</label>
 					</div>
@@ -47,26 +47,70 @@
 							<th id="weekhishead" colspan="2" style="display: none;">PREVIOUS WEEK</th>
 							<th id="monthhishead" colspan="2" style="display: none;">PREVIOUS MONTH</th>
 						</tr>
-						<tbody>
+						<tbody id="dayinfo">
 								<tr>
 									<th class="col-md-6 col-lg-6 col-sm-6">High</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.high_price | number:3}}</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.high_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="col-md-6 col-lg-6 col-sm-6">Low</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.low_price | number:3}}</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.low_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="col-md-6 col-lg-6 col-sm-6">Open</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.open_price | number:3}}</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.open_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="col-md-6 col-lg-6 col-sm-6">Close</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.close_price | number:3}}</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.close_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="col-md-6 col-lg-6 col-sm-6">Volume</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{lastest.volume | number:3}}</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.volume | number:3}}</th>
+								</tr>
+						</tbody>
+						<tbody id="weekinfo" style="display:none;">
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">High</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.high_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Low</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.low_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Open</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.open_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Close</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.close_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Volume</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.volume | number:3}}</th>
+								</tr>
+						</tbody>
+						<tbody id="monthinfo" style="display:none;">
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">High</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.high_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Low</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.low_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Open</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.open_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Close</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.close_price | number:3}}</th>
+								</tr>
+								<tr>
+									<th class="col-md-6 col-lg-6 col-sm-6">Volume</th>
+									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.volume | number:3}}</th>
 								</tr>
 						</tbody>
 					</thead>
@@ -130,35 +174,55 @@ $(document).ready(function(){
     $("#dayhishead").show();
     $("#weekhishead").hide();
     $("#monthhishead").hide();
+
     $("#dayprehead").show();
     $("#weekprehead").hide();
     $("#monthprehead").hide();
+
     $("#daypre").show();
     $("#weekpre").hide();
     $("#monthpre").hide();
+
+   	$("#dayinfo").show();
+    $("#weekinfo").hide();
+    $("#monthinfo").hide();
     }
+
     if($("input[name='predict']:checked").val()==='w'){
     $("#dayhishead").hide();
     $("#weekhishead").show();
     $("#monthhishead").hide();
+
     $("#dayprehead").hide();
     $("#weekprehead").show();
     $("#monthprehead").hide();
+
     $("#daypre").hide();
     $("#weekpre").show();
     $("#monthpre").hide();
+
+    $("#dayinfo").hide();
+    $("#weekinfo").show();
+    $("#monthinfo").hide();
     }
 
     if($("input[name='predict']:checked").val()==='m'){
     $("#dayhishead").hide();
     $("#weekhishead").hide();
     $("#monthhishead").show();
+
     $("#dayprehead").hide();
     $("#weekprehead").hide();
     $("#monthprehead").show();
+
     $("#daypre").hide();
     $("#weekpre").hide();
     $("#monthpre").show();
+
+    $("#dayinfo").hide();
+    $("#weekinfo").hide();
+    $("#monthinfo").show();
+
     }
 });
 

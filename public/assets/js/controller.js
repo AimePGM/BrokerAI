@@ -177,31 +177,72 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			$scope.stock = data;
 		});
 
-		$scope.getLatestStocks = function(get_type) {
-			console.log(get_type)
-			if(get_type != "week" && get_type != "month") {
-				get_type = "day"
-			}
+	
 
-			//lastest stock data
-			$http.get('http://128.199.105.21:8000/api/lateststocks/?type='+get_type).success(function(data) {
+
+		$scope.getLatestStocks = function() {
+
+			//get day stock's info
+			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=day').success(function(data) {
 					var stocks = data;
-					var lastest ={};
+					var day_lastest ={};
 					stocks.forEach(function(stock){
-						if(stock.company_id==$routeParams.stockID){
-							lastest.open_price = stock.open_price;
-							lastest.close_price = stock.close_price;
-							lastest.high_price = stock.high_price;
-							lastest.low_price = stock.low_price;
-							lastest.volume = stock.volume;
+						if(stock.company_id==$routeParams.stockID && inLoop){
+							day_lastest.open_price = stock.open_price;
+							day_lastest.close_price = stock.close_price;
+							day_lastest.high_price = stock.high_price;
+							day_lastest.low_price = stock.low_price;
+							day_lastest.volume = stock.volume;
 						}
 					});
-					$scope.lastest=lastest;
-					console.log(lastest);
+					$scope.day_lastest=day_lastest;
+					console.log(day_lastest);
 					usSpinnerService.stop('spinner-1');
-					$("#hide").fadeIn();
+			 		$("#hide").fadeIn();
 
 			});
+
+			//get week stock's info
+			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=week').success(function(data) {
+					var stocks = data;
+					var week_lastest ={};
+
+					stocks.forEach(function(stock){
+						if(stock.company_id==$routeParams.stockID){
+							week_lastest.open_price = stock.open_price;
+							week_lastest.close_price = stock.close_price;
+							week_lastest.high_price = stock.high_price;
+							week_lastest.low_price = stock.low_price;
+							week_lastest.volume = stock.volume;
+							
+						}
+					});
+					$scope.week_lastest=week_lastest;
+					console.log(week_lastest);
+					
+
+			});
+
+			//get month stock's info
+			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=month').success(function(data) {
+					var stocks = data;
+					var month_lastest ={};
+					stocks.forEach(function(stock){
+						if(stock.company_id==$routeParams.stockID){
+							month_lastest.open_price = stock.open_price;
+							month_lastest.close_price = stock.close_price;
+							month_lastest.high_price = stock.high_price;
+							month_lastest.low_price = stock.low_price;
+							month_lastest.volume = stock.volume;
+							
+						}
+					});
+					$scope.month_lastest=month_lastest;
+					console.log(month_lastest);
+					
+			});
+
+
 
 		}
 		$scope.getLatestStocks("day");
