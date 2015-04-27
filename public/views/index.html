@@ -5,8 +5,8 @@
         <div class="login-wrapper">
             <form ng-submit="processUser()">
                 <div class="panel panel-login">
-                    <input type="text" ng-model="user.username" placeholder="username" class="form-control" />
-                    <input type="password" ng-model="user.password"placeholder="password" class="form-control" />
+                    <input type="text" ng-model="user.username" placeholder="username" class="form-control" required/>
+                    <input type="password" ng-model="user.password"placeholder="password" class="form-control" required/>
                     <button type="submit" class="btn btn-darkgrey">Login</button>
                     <div class="other-option">
                         <a href="register" class="register-link">Register</a>

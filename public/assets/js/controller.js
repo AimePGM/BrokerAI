@@ -2,9 +2,12 @@ var stockControllers = angular.module('stockControllers',[]);
 
 stockControllers.controller('NavbarCtrl',['$scope', '$http','$window',
 	function($scope, $http, $window){
+		$scope.isLoggedin = false;
+
 		$http.get('http://128.199.105.21:8000/api/users/')
 		.success(function(data){
 				$scope.user = data;
+				$scope.isLoggedin = true;
 				console.log(data);
 		})
 		.error(function(data, headers){
@@ -281,8 +284,11 @@ stockControllers.controller('LoginCtrl',['$scope','$http','$window',
 			})
 			.error(function(data,status){
 				console.log(data);
-				console.log(status);
-				alert("error");
+				console.log(status)
+
+				if(typeof data.non_field_errors != undefined) {
+					alert(data.non_field_errors);
+				}
 			});
 		};
 	}
@@ -293,6 +299,7 @@ stockControllers.controller('ResgisterCtrl',['$scope','$http',
 	function($scope, $http){
 		$scope.user = {};
 		$scope.processUser = function() {
+			
 			$http.post('http://128.199.105.21:8000/api/register/',$scope.user)
 			.success(function(data){
 				alert("Registeration succeed!");
@@ -389,6 +396,14 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
+
+		$http.get('http://128.199.105.21:8000/api/users/')
+		.success(function(data){
+		})
+		.error(function(data, headers){
+			alert("Please Login!");
+			window.location="http://127.0.0.1:3000/"
+		});
 
 		$scope.searchResult = function(){
 			if(typeof $scope.selectedCompany === "undefined")
