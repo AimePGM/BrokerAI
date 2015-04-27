@@ -217,7 +217,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 							week_lastest.high_price = stock.high_price;
 							week_lastest.low_price = stock.low_price;
 							week_lastest.volume = stock.volume;
-							
+							break;
 						}
 					}
 					
@@ -239,10 +239,9 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 							month_lastest.high_price = stock.high_price;
 							month_lastest.low_price = stock.low_price;
 							month_lastest.volume = stock.volume;
-							
+							break;
 						}
 					}
-					
 					$scope.month_lastest=month_lastest;
 					console.log(month_lastest);
 					
