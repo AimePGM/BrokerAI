@@ -1,4 +1,30 @@
-
+.content-section{
+	padding-bottom: 40px;
+}
+.to_center{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding-top: 30px;
+}
+.page-number-wrapper{
+	display: inline-flex;
+	text-align: center;
+}
+.page-number{
+	padding: 10px;
+	border: #333 1px solid;
+	color: #222;
+	background: #fff;
+	margin: 2px;
+	min-width: 40px;
+	text-align: center;
+}
+.page-number:hover{
+	border: #222 1px solid;
+	color: #fff;
+	background: #222;
+}
 
 .index-content-wrapper{
 	padding-top:15vh;
