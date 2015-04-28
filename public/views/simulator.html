@@ -18,36 +18,35 @@
 								</div>
 								<div class="content">
 										<div class="well">
+											<form id="simForm" ng-submit="simSubmit()">
 												<div style="margin-bottom:15px;" class="row">
-														<div class="col-md-12">
-																<input type="text" name="budget" placeholder="BUDGET" class="form-control submitB">
-														</div>
+														
 												</div>
 												<div style="margin-bottom:15px;" class="row">
-														<div class="col-md-6">
-																<div class="dropdown">
-																		<button id="dropdownMenu1" type="button" data-toggle="dropdown" aria-expanded="true" class="btn btn-default dropdown-toggle category-drop submitB">DURATION
-																				<span class="caret"></span>
-																		</button>
-																		<ul role="menu" aria-labelledby="dropdownMenu1" class="dropdown-menu">
-																				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Daily</a>
-																				</li>
-																				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Weekly</a>
-																				</li>
-																				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Montly</a>
-																				</li>
-																		</ul>
-																</div>
+													<div class="col-md-6 col-lg-6 col-sm-6">
+																<input type="text" name="budget" placeholder="BUDGET" ng-model="budget" class="form-control submitB">
 														</div>
-														<div class="col-md-6">
-																<input type="text" name="searchStock" placeholder="PROFITS" class="form-control submitB">
+														<div class="col-md-6 col-lg-6 col-sm-12" style="height: 55px; display: none;">
+																			<div data-toggle="buttons" class="btn-group btn-group-options" style="margin-top: -5px;height: 65px;">
+																				<label ng-click="" class="btn btn-darkgrey active" style="font-size: 20px;padding-top: 10px;">
+																					<input id="daily" type="radio" name="duration" value="d" autocomplete="off" checked=""> Daily</label>
+																				<label ng-click="" class="btn btn-darkgrey" style="font-size: 20px;padding-top: 10px;">
+																					<input id="weekly" type="radio" name="duration" value="w"  autocomplete="off"> Weekly</label>
+																				<label ng-click="" class="btn btn-darkgrey" style="font-size: 20px;padding-top: 10px;">
+																					<input id="monthly" type="radio" name="duration" value="m"  autocomplete="off"> Monthly</label>
+																			</div>
+																		</div>
+														<div class="col-md-6 col-lg-6 col-sm-6">
+																<input type="text" name="profit" placeholder="PROFITS" ng-model="profit" class="form-control submitB">
 														</div>
 												</div>
 												<div class="row">
 														<div class="col-md-12">
-																<button class="btn submitB category-drop btn-primary">SUBMIT</button>
+															<label class="btn submitB category-drop btn-primary">
+																<input  type="submit" id="submit" value="Submit" class="subbtn"/></label>
 														</div>
 												</div>
+											</form>
 										</div>
 								</div>
 								<div class="content">
@@ -82,8 +81,9 @@
 													<td class="col-md-1 col-lg-1 col-sm-1 bs-col">{{stock.bs_daily_buy | number:3}}</td>
 													<td class="col-md-1 col-lg-1 col-sm-1 bs-col">{{stock.bs_daily_sell | number:3}}</td>
 
-													<!--Volume-->
-													<td class="col-md-1 col-lg-1 col-sm-1 vol-col">{{stock.bs_volume | number:3}}</td>
+													<!--Volume>
+													<td class="col-md-1 col-lg-1 col-sm-1 vol-col">{{stock.bs_volume | number:3}}</td-->
+													<td class="col-md-1 col-lg-1 col-sm-1 vol-col"><pre>{{volume}}</pre></td>
 
 													<!--DT-->
 													<td ng-if="stock.hilight==='nn'" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>

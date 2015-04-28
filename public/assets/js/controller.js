@@ -545,6 +545,22 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
+
+		var vol = 0;
+		$scope.volume = '';
+		$scope.budget = '';
+		$scope.profit = '';
+		var b = $scope.budget;
+		var p = $scope.profit;
+      	$scope.simSubmit = function() {
+        	vol = b*(p/100);
+        	$scope.volume = vol;
+        	$scope.budget = '';
+			$scope.profit = '';
+			console.log("Submit by budget="+budget+"and profit="+profit);
+        };
+        
+
 				//get predicted data
 				console.log("fetching predicted data");
 				console.err
