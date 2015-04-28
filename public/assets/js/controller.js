@@ -8,7 +8,7 @@ stockControllers.controller('NavbarCtrl',['$scope', '$http','$window',
 		.success(function(data){
 				$scope.user = data;
 				$scope.isLoggedin = true;
-				console.log(data);
+				// console.log(data);
 		})
 		.error(function(data, headers){
 			console.log(data);
@@ -126,6 +126,10 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 				get_type = "day"
 			}
 
+			$http.get('http://128.199.105.21:8000/api/predicted/')
+			.success(function(data){
+				var predicted = data;
+
 			$http.get('http://128.199.105.21:8000/api/companies/')
 			.success(function(data) {
 				var companies = data;
@@ -134,6 +138,7 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 				$http.get('http://128.199.105.21:8000/api/lateststocks/?type='+get_type)
 				.success(function(data) {
 					var stocks = data;
+
 					var ans = stocks.filter(function(stock){
 						for (var i = 0; i < companies.length; i++)
 						{
@@ -146,7 +151,46 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 						}
 					});
 
-					$scope.stocks=ans;
+					var p;
+					if(get_type == "day"){
+						p = stocks.filter(function(stock){
+							for (var i = 0; i < predicted.length; i++) {
+								if(predicted[i].stock_id == stock.id){
+									stock.nn_daily = predicted[i].nn_daily;
+									stock.dt_daily = predicted[i].dt_daily;
+									stock.bs_daily_buy = predicted[i].bs_daily_buy;
+									stock.bs_daily_sell = predicted[i].bs_daily_sell;
+									return true;
+								}
+							};
+						});
+					}else if(get_type=="week"){
+						p = stocks.filter(function(stock){
+							for (var i = 0; i < predicted.length; i++) {
+								if(predicted[i].stock_id == stock.id){
+									stock.nn_daily = predicted[i].nn_weekly;
+									stock.dt_daily = predicted[i].dt_weekly;
+									stock.bs_daily_buy = predicted[i].bs_weekly_buy;
+									stock.bs_daily_sell = predicted[i].bs_weekly_sell;
+									return true;
+								}
+							};
+						});
+					}else{
+						p = stocks.filter(function(stock){
+							for (var i = 0; i < predicted.length; i++) {
+								if(predicted[i].stock_id == stock.id){
+									stock.nn_daily = predicted[i].nn_monthly;
+									stock.dt_daily = predicted[i].dt_monthly;
+									stock.bs_daily_buy = predicted[i].bs_monthly_buy;
+									stock.bs_daily_sell = predicted[i].bs_monthly_sell;
+									return true;
+								}
+							};
+						});
+					}
+
+					$scope.stocks=p;
 					usSpinnerService.stop('spinner-1');
 					$("#fetching").hide();
 					$("#hide").fadeIn();
@@ -174,6 +218,13 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 			})
 			.error(function(data){
 			});
+
+
+			})
+			.error(function(data){
+
+			});
+			
 		}
 
 	$scope.getLatestStocks("day");
@@ -533,7 +584,11 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 				.success(function(data){
 					var lastests = data;
 
-					$http.get('http://128.199.105.21:8000/api/companies/')
+					$http.get('http://128.199.105.21:8000/api/predicted/')
+					.success(function(data){
+						var predicted = data;
+
+						$http.get('http://128.199.105.21:8000/api/companies/')
 						.success(function(data){
 							var companies = data;
 
@@ -547,6 +602,7 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 												return true;
 										};
 									});
+									console.log(a);
 
 									var ans = lastests.filter(function(lastest){
 										for (var i = 0; i < a.length; i++) {
@@ -559,11 +615,51 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 										};
 									});
 									console.log(ans);
-									$scope.favorite_stocks = ans;
+									var p;
+									if(get_type=="day"){
+										p = ans.filter(function(an){
+											for (var i = 0; i < predicted.length; i++) {
+												if(an.id == predicted[i].stock_id){
+													an.nn_daily = predicted[i].nn_daily || "No Data";
+													an.dt_daily = predicted[i].dt_daily || "No Data";
+													an.bs_daily_buy = predicted[i].bs_daily_buy;
+													an.bs_daily_sell = predicted[i].bs_daily_sell;
+													return true;
+												}
+											};
+										});
+									}else if(get_type=="week"){
+										p = ans.filter(function(an){
+											for (var i = 0; i < predicted.length; i++) {
+												if(an.id == predicted[i].stock_id){
+													an.nn_daily = predicted[i].nn_weekly || "No Data";
+													an.dt_daily = predicted[i].dt_weekly || "No Data";
+													an.bs_daily_buy = predicted[i].bs_weekly_buy;
+													an.bs_daily_sell = predicted[i].bs_weekly_sell;
+													return true;
+												}
+											};
+										});
+									}else if(get_type=="month"){
+										p = ans.filter(function(an){
+											for (var i = 0; i < predicted.length; i++) {
+												if(an.id == predicted[i].stock_id){
+													an.nn_daily = predicted[i].nn_monthly || "No Data";
+													an.dt_daily = predicted[i].dt_monthly || "No Data";
+													an.bs_daily_buy = predicted[i].bs_monthly_buy;
+													an.bs_daily_sell = predicted[i].bs_monthly_sell;
+													return true;
+												}
+											};
+										});
+									}		
+
+									console.log(p);
+									$scope.favorite_stocks = p;
 									usSpinnerService.stop('spinner-1');
 									$("#fetching").hide();
 									$("#hide").fadeIn();
-									$scope.companies = ans;
+									$scope.companies = p;
 
 								})
 								.error(function(data){
@@ -573,6 +669,14 @@ stockControllers.controller('FavoriteCtrl',['$scope','$routeParams','$http','usS
 						.error(function(data){
 							console.log(data);
 						});
+
+
+					})
+					.error(function(data){
+
+					});
+
+     		
 				})
 				.error(function(data){
 					console.log(data);

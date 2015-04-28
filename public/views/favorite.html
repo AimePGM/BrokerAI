@@ -1,6 +1,6 @@
 <div ng-include="template.navbar"></div>
 		<div>
-				<section>
+				<section style="padding-bottom:50px;">
 					<div class="spin">
 						<span spinner-key="spinner-1" spinner-start-active="true" us-spinner="{radius:15, width:8, length: 16}"></span>
 					</div>
@@ -43,7 +43,8 @@
 																<th>SYMBOL</th>
 																<th>COMPANY</th>
 																<th>LAST SALE</th>
-																<th>CHANGE NET / %</th>
+																<th>DT PREDICTION</th>
+																<th>NN PREDICTION</th>
 														</tr>
 												</thead>
 												<tbody class="favorite_stocks">
@@ -53,11 +54,13 @@
 																</th>
 																<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{fav.symbol}}
 																</th>
-																<td style="position:relative;" class="col-md-5 col-lg-5-col-sm-5">
+																<td style="position:relative;" class="col-md-4 col-lg-4-col-sm-4">
 																	<a href="/stocks/{{fav.company_id}}">{{fav.name}}<i class="fa fa-info-circle moreinfo"></i>
 																	</a>
 																</td>
 																<td class="col-md-2 col-lg-2-col-sm-2">{{fav.high_price | number:3}}</td>
+																<td class="col-md-2 col-lg-2-col-sm-2">{{fav.dt_daily | number:3}}</td>
+																<td class="col-md-2 col-lg-2-col-sm-2">{{fav.nn_daily | number:3}}</td>
 																<td ng-if="fav.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{fav.daily_predict_price}}
 																		<li class="fa fa-caret-down"> {{fav.daily_predict_percent}}
 																		</li>

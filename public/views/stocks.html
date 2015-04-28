@@ -41,7 +41,8 @@
 							<th>SYMBOL</th>
 							<th>COMPANY</th>
 							<th>LAST SALE</th>
-							<th>CHANGE NET / %</th>
+							<th>DT PREDICTION</th>
+							<th>NN PREDICTION</th>
 						</tr>
 					</thead>
 					<!--day-->
@@ -51,102 +52,29 @@
 								<button id="{{stock.company_id}}" ng-click="toggle(stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
 							</th>
 							<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{stock.symbol}}
-								<td style="position:relative;" class="col-md-5 col-lg-5-col-sm-5"><a href="/stocks/{{stock.company_id}}">{{stock.company_name}}<i class="fa fa-info-circle moreinfo"> </i></a>
+								<td style="position:relative;" class="col-md-4 col-lg-4-col-sm-4"><a href="/stocks/{{stock.company_id}}">{{stock.company_name}}<i class="fa fa-info-circle moreinfo"> </i></a>
 								</td>
 
 								<td class="col-md-2 col-lg-2-col-sm-2">{{stock.high_price | number:3}}</td>
+								<td class="col-md-2 col-lg-2-col-sm-2">{{stock.dt_daily | number:3}}</td>
+								<td class="col-md-2 col-lg-2-col-sm-2">{{stock.nn_daily | number:3}}</td>
+								
 								<td ng-if="stock.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{stock.daily_predict_price}}
 									<li class="fa fa-caret-down"> {{stock.daily_predict_percent}}</li>
 								</td>
 								<td ng-if="stock.daily_predict==='up'" class="col-md-3 col-lg-3-col-sm-3 up">{{stock.daily_predict_price}}
 									<li class="fa fa-caret-up"> {{stock.daily_predict_percent}}</li>
 								</td>
-								
-
-								
 							</th>
 						</tr>
 					</tbody><!--day-->
 
-					<!--week-->
-					<tbody class="stocks week" style="display:none;">
-						<tr ng-repeat="week_stock in week_stocks">
-							<th id="noborder">
-								<button id="{{week_stock.company_id}}" ng-click="toggle(week_stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
-							</th>
-							<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{week_stock.symbol}}
-								<td style="position:relative;" class="col-md-5 col-lg-5-col-sm-5"><a href="/stocks/{{week_stock.company_id}}">{{week_stock.company_name}}<i class="fa fa-info-circle moreinfo"> </i></a>
-								</td>
 
-								
-								<td class="col-md-2 col-lg-2-col-sm-2">{{week_stock.close_price | number:4}}</td>
-								<td ng-if="stock.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{week_stock.daily_predict_price}}
-									<li class="fa fa-caret-down"> {{week_stock.daily_predict_percent}}</li>
-								</td>
-								<td ng-if="stock.daily_predict==='up'" class="col-md-3 col-lg-3-col-sm-3 up">{{week_stock.daily_predict_price}}
-									<li class="fa fa-caret-up"> {{week_stock.daily_predict_percent}}</li>
-								</td>
-								
 
-							</th>
-						</tr>
-					</tbody><!--week-->
-
-					<!--month-->
-					<tbody class="stocks month" style="display:none;">
-						<tr ng-repeat="month_stock in month_stocks">
-							<th id="noborder">
-								<button id="{{month_stock.company_id}}" ng-click="toggle(month_stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
-							</th>
-							<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{month_stock.symbol}}
-								<td style="position:relative;" class="col-md-5 col-lg-5-col-sm-5"><a href="/stocks/{{month_stock.company_id}}">{{month_stock.company_name}}<i class="fa fa-info-circle moreinfo"> </i></a>
-								</td>
-
-								
-								<!--month-->
-								<td class="col-md-2 col-lg-2-col-sm-2">{{month_stock.close_price | number:4}}</td>
-								<td ng-if="stock.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{month_stock.daily_predict_price}}
-									<li class="fa fa-caret-down"> {{month_stock.daily_predict_percent}}</li>
-								</td>
-								<td ng-if="stock.daily_predict==='up'" class="col-md-3 col-lg-3-col-sm-3 up">{{month_stock.daily_predict_price}}
-									<li class="fa fa-caret-up"> {{month_stock.daily_predict_percent}}</li>
-								</td>
-								<!--month-->
-								
-							</th>
-						</tr>
-					</tbody><!--month-->
+					
 
 				</table>
 			</div>
 		</div>
 	</section>
 </div>
-
-
-<script> 
-$(document).ready(function(){
-  
-  $("input[name='predict']").change(function(){
-    if($("input[name='predict']:checked").val()==='d'){
-    $(".day").show();
-    $(".week").hide();
-    $(".month").hide();
-    }
-
-    if($("input[name='predict']:checked").val()==='w'){
-    $(".day").hide();
-    $(".week").show();
-    $(".month").hide();
-    }
-
-    if($("input[name='predict']:checked").val()==='m'){
-   	$(".day").hide();
-    $(".week").hide();
-    $(".month").show();
-    }
-});
-
-
-});
-</script> 
