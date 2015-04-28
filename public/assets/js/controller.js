@@ -552,6 +552,15 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 								if (stocks[j].id == rec_stocks[i].stock_id) {
 								rec_stocks[stocks_data_num].company_id = stocks[j].company_id;
 								rec_stocks[stocks_data_num].high_price = stocks[j].high_price;
+								var x = stocks[j].high_price - rec_stocks[stocks_data_num].dt_daily;
+								var y = stocks[j].high_price - rec_stocks[stocks_data_num].nn_daily;
+								if (x<0) x = x*(-1);
+								if (y<0) y = y*(-1);
+								if (x<y) {
+									rec_stocks[stocks_data_num].hilight = "dt";
+								}else if (y<x){
+									rec_stocks[stocks_data_num].hilight = "nn";
+								}
 								stocks_data_num++;
 								}
 							};
