@@ -237,7 +237,7 @@
 	font-size:20px
 }
 .table-bordered thead{
-	background-color:black
+	background-color: #222;
 }
 .table-company-name{
 	position:relative
@@ -260,11 +260,16 @@
 	text-align:center
 }
 .well{
-	background-color:#777
+	background-color:#222;
 }
 .btn-primary.submitB{
-	background-color:#2B2B2B;
-	border:#2B2B2B
+	background-color:#222;
+	border:#888 2px solid;
+}
+.btn-primary.submitB:hover{
+	background-color:#888;
+	border:#888 3px solid;
+	color: #222;
 }
 .chartdiv{
 	width:100%;
