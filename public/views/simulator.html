@@ -1,7 +1,13 @@
 <div ng-include="template.navbar"></div>
 		<div>
 				<section class="content-section">
-						<div class="container main-content-wrapper">
+					<div class="spin">
+						<span spinner-key="spinner-1" spinner-start-active="true" us-spinner="{radius:15, width:8, length: 16}"></span>
+					</div>
+					<div id="fetching" class="container main-content-wrapper" style="color: #434040; display: block;">
+						<center><h1><i><b>FETCHING DATA ...</b></i></h1></center>
+					</div>
+						<div id="hide" class="container main-content-wrapper">
 								<div class="row col-md-12 col-lg-12 col-sm-12">
 										<div class="row col-md-8 col-lg-8 col-sm-12">
 												<h1>STOCK SIMULATOR</h1>
@@ -61,28 +67,30 @@
 										</thead>
 										
 										<tbody class="stocks">
-											<tr ng-repeat="stock in stocks">
+											<tr ng-repeat="stock in rec_stocks">
 												<th id="noborder">
 													<button id="{{stock.company_id}}" ng-click="toggle(stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
 												</th>
 												<th scope="row" class="col-md-2 col-lg-2 col-sm-2">{{stock.symbol}}
-													<td style="position:relative;" class="col-md-3 col-lg-3 col-sm-3"><a href="/stocks/{{stock.company_id}}">{{stock.company_name}} a<i class="fa fa-info-circle moreinfo"> </i></a>
+													<td style="position:relative;" class="col-md-3 col-lg-3 col-sm-3"><a href="/stocks/{{stock.company_id}}">{{stock.name}}<i class="fa fa-info-circle moreinfo"> </i></a>
 													</td>
 													<td class="col-md-2 col-lg-2 col-sm-2">{{stock.high_price | number:3}}</td>
 
-													<!--Volume-->
-													<td class="col-md-1 col-lg-1 col-sm-1 vol-col">{{stock.bs_volume | number:3}}</td>
+													
 													
 													<!--BS-->
 													<td class="col-md-1 col-lg-1 col-sm-1 bs-col">{{stock.bs_daily_buy | number:3}}</td>
 													<td class="col-md-1 col-lg-1 col-sm-1 bs-col">{{stock.bs_daily_sell | number:3}}</td>
+
+													<!--Volume-->
+													<td class="col-md-1 col-lg-1 col-sm-1 vol-col">{{stock.bs_volume | number:3}}</td>
 
 													<!--DT-->
 													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
 													<td ng-if="(stock.high_price - stock.dt_daily)<(stock.high_price - stock.nn_daily)" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
 													
 													<!--NN-->
-													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
+													<td ng-if="(stock.high_price - stock.dt_daily)<(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
 													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
 
 												</th>

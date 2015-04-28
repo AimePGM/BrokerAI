@@ -507,11 +507,87 @@ stockControllers.controller('ResgisterCtrl',['$scope','$http',
 	}
 ]);
 
-stockControllers.controller('SimulatorCtrl',['$scope',
-	function($scope) {
+stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','usSpinnerService',
+	function($scope, $routeParams, $http, usSpinnerService) {
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
+				//get predicted data
+				console.log("fetching predicted data");
+				console.err
+				$http.get('http://128.199.105.21:8000/api/predicted/').success(function(data) {
+					var pre_stocks = data;
+					console.log("fetching predicted data  ---> complete");
+
+					console.log("fetching stocks data");
+					$http.get('http://128.199.105.21:8000/api/stocks/').success(function(data) {
+						var stocks = data;
+						console.log("fetching stocks data  ---> complete");
+
+						console.log("fetching companies data");
+					$http.get('http://128.199.105.21:8000/api/companies/').success(function(data) {
+						var companies = data;
+						console.log("fetching companies data  ---> complete");
+						
+
+
+						 var rec_stocks = {};
+						 var num_rec=0;
+						 console.log("finding recommended stocks data");
+						 for (var i = 0; i < pre_stocks.length; i++) {
+						 	if (pre_stocks[i].bs_daily_recommend==1){
+						 		rec_stocks[num_rec] = pre_stocks[i];
+						 		num_rec++;
+						 	}
+						 };
+
+						
+						
+						
+						var stocks_data_num=0;
+						
+						console.log("finding stocks data from rec.id");
+						for (var i = 0; i < num_rec; i++) {
+							for (var j = 0; j < stocks.length; j++) {
+								if (stocks[j].id == rec_stocks[i].stock_id) {
+								rec_stocks[stocks_data_num].company_id = stocks[j].company_id;
+								rec_stocks[stocks_data_num].high_price = stocks[j].high_price;
+								stocks_data_num++;
+								}
+							};
+						};
+
+						
+
+
+						
+						
+						var companies_data_num=0;
+						console.log("finding companies data from company.id");
+						for (var i = 0; i < stocks_data_num; i++) {
+							for (var j = 0; j < companies.length; j++) {
+								if (companies[j].id == rec_stocks[i].company_id) {
+								rec_stocks[companies_data_num].name = companies[j].name;
+								rec_stocks[companies_data_num].symbol = companies[j].symbol;
+								companies_data_num++;
+								}
+							};
+						};
+						
+
+						console.log("final data");
+						console.log(rec_stocks);
+
+						$scope.rec_stocks = rec_stocks;
+						usSpinnerService.stop('spinner-1');
+						$("#fetching").hide();
+				 		$("#hide").fadeIn();
+
+				 		
+				 		});
+				 	});
+				});
+
 	}
 ]);
 
