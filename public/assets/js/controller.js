@@ -369,10 +369,8 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			var stocks = data;
 			var chartData = []; //store stock data for making graph
 
-			console.log("chart");
-
 			//choose 100 close&open price //history
-			for (var i=0; i<100; i++) {
+			for (var i = 0; i < stocks.length; i++) {
 				var newDate = new Date(stocks[i].date);
 				var closed_price = stocks[i].close_price;
 				var open_price = stocks[i].open_price;
@@ -384,18 +382,32 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 				});
 			};
 
-			//predicted
-			// for (var i = 110; i < 120; i++) {
-			// 	var newDate = new Date(stocks[i].date);
-			// 	var open_price = stocks[i].open_price;
-			// 	//store each data
-			// 	chartData.push({
-			// 	  date: newDate,
-			// 	  open_price: open_price
-			// 	});
-			// };
+			var today = new Date();
+			$http.get('http://128.199.105.21:8000/api/predicted/')
+			.success(function(data){
+				var predicted = data;
+				var nn;
+				var dt;
 
-			// console.log(chartData);
+				for(var i = 0; i < predicted.length; i++){ 
+					if(predicted[i].stock_id==$routeParams.stockID){
+						nn = predicted[i].nn_daily;
+						dt = predicted[i].dt_daily;
+						break;
+					}
+				}
+
+				chartData.push({
+				  date: today,
+				  dt: dt,
+				  nn: nn
+				});
+
+			})
+			.error(function(data){
+				console.log(data);
+			});
+
 			//creating graph
 			var chart = AmCharts.makeChart("linechart", {
 		    "type": "serial",
