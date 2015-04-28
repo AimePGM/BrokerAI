@@ -241,81 +241,127 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			$scope.stock = data;
 		});
 
-	
-
-
 		$scope.getLatestStocks = function() {
 
-			//get day stock's info
-			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=day').success(function(data) {
-					var stocks = data;
-					var day_lastest ={};
-					for(var i = 0; i < stocks.length; i++){ 
-						var stock = stocks[i];
-						if(stock.company_id==$routeParams.stockID){
-							day_lastest.open_price = stock.open_price;
-							day_lastest.close_price = stock.close_price;
-							day_lastest.high_price = stock.high_price;
-							day_lastest.low_price = stock.low_price;
-							day_lastest.volume = stock.volume;
-							break;
+			$http.get('http://128.199.105.21:8000/api/predicted/')
+			.success(function(data){
+				var predicted = data;
+
+				//get day stock's info
+				$http.get('http://128.199.105.21:8000/api/lateststocks/?type=day').success(function(data) {
+						var stocks = data;
+						var day_lastest={};
+
+						console.log("day data");
+						for(var i = 0; i < stocks.length; i++){
+							var stock = stocks[i];
+							if(stock.company_id==$routeParams.stockID){
+								day_lastest.open_price = stock.open_price;
+								day_lastest.close_price = stock.close_price;
+								day_lastest.high_price = stock.high_price;
+								day_lastest.low_price = stock.low_price;
+								day_lastest.volume = stock.volume;
+								day_lastest.stock_id = stock.id;
+								break;
+							}
 						}
-					}
-					
-					$scope.day_lastest=day_lastest;
-					console.log(day_lastest);
-					usSpinnerService.stop('spinner-1');
-					$("#fetching").hide();
-			 		$("#hide").fadeIn();
 
-			});
+						for (var j = 0;j < predicted.length; j++) {
+							if(day_lastest.stock_id==predicted[j].stock_id){
+								day_lastest.nn_daily = predicted[j].nn_daily;
+								day_lastest.dt_daily = predicted[j].dt_daily;
+								day_lastest.bs_daily_buy = predicted[j].bs_daily_buy;
+								day_lastest.bs_daily_sell = predicted[j].bs_daily_sell;
+								break;
+							}
+						};
 
-			//get week stock's info
-			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=week').success(function(data) {
-					var stocks = data;
-					var week_lastest ={};
-					for(var i = 0; i < stocks.length; i++){ 
-						var stock = stocks[i];
-						if(stock.company_id==$routeParams.stockID){
-							week_lastest.open_price = stock.open_price;
-							week_lastest.close_price = stock.close_price;
-							week_lastest.high_price = stock.high_price;
-							week_lastest.low_price = stock.low_price;
-							week_lastest.volume = stock.volume;
-							break;
+						
+						console.log(day_lastest);
+						
+						$scope.day_lastest=day_lastest;
+						// console.log(day_lastest);
+						usSpinnerService.stop('spinner-1');
+						$("#fetching").hide();
+				 		$("#hide").fadeIn();
+
+				});
+
+				//get week stock's info
+				$http.get('http://128.199.105.21:8000/api/lateststocks/?type=week').success(function(data) {
+						var stocks = data;
+						var week_lastest={};
+
+						console.log("week data");
+
+						for(var i = 0; i < stocks.length; i++){ 
+							var stock = stocks[i];
+							if(stock.company_id==$routeParams.stockID){
+								week_lastest.open_price = stock.open_price;
+								week_lastest.close_price = stock.close_price;
+								week_lastest.high_price = stock.high_price;
+								week_lastest.low_price = stock.low_price;
+								week_lastest.volume = stock.volume;
+								break;
+							}
 						}
-					}
-					
-					$scope.week_lastest=week_lastest;
-					console.log(week_lastest);
-					
 
-			});
+						for (var j = 0;j < predicted.length; j++) {
+								if(week_lastest.stock_id==predicted[j].stock_id){
+									week_lastest.nn_daily = predicted[j].nn_daily;
+									week_lastest.dt_daily = predicted[j].dt_daily;
+									week_lastest.bs_daily_buy = predicted[j].bs_daily_buy;
+									week_lastest.bs_daily_sell = predicted[j].bs_daily_sell;
+									break;
+								}
+						};
+						
+						$scope.week_lastest=week_lastest;
+						// console.log(week_lastest);
+						
 
-			//get month stock's info
-			$http.get('http://128.199.105.21:8000/api/lateststocks/?type=month').success(function(data) {
-					var stocks = data;
-					var month_lastest ={};
-					for(var i = 0; i < stocks.length; i++){ 
-						var stock = stocks[i];
-						if(stock.company_id==$routeParams.stockID){
-							month_lastest.open_price = stock.open_price;
-							month_lastest.close_price = stock.close_price;
-							month_lastest.high_price = stock.high_price;
-							month_lastest.low_price = stock.low_price;
-							month_lastest.volume = stock.volume;
-							break;
+				});
+
+				//get month stock's info
+				$http.get('http://128.199.105.21:8000/api/lateststocks/?type=month').success(function(data) {
+						var stocks = data;
+						var month_lastest={};
+						console.log("month data");
+
+						for(var i = 0; i < stocks.length; i++){ 
+							var stock = stocks[i];
+							if(stock.company_id==$routeParams.stockID){
+								month_lastest.open_price = stock.open_price;
+								month_lastest.close_price = stock.close_price;
+								month_lastest.high_price = stock.high_price;
+								month_lastest.low_price = stock.low_price;
+								month_lastest.volume = stock.volume;
+								break;
+							}
 						}
-					}
-					$scope.month_lastest=month_lastest;
-					console.log(month_lastest);
-					
+
+						for (var j = 0;j < predicted.length; j++) {
+							if(month_lastest.stock_id==predicted[j].stock_id){
+								month_lastest.nn_daily = predicted[j].nn_daily;
+								month_lastest.dt_daily = predicted[j].dt_daily;
+								month_lastest.bs_daily_buy = predicted[j].bs_daily_buy;
+								month_lastest.bs_daily_sell = predicted[j].bs_daily_sell;
+								break;
+							}
+						};
+
+						$scope.month_lastest=month_lastest;
+						// console.log(month_lastest);
+						
+				});
+
+
+			})
+			.error(function(data){
+				console.log(data);
 			});
-
-
-
 		}
-		$scope.getLatestStocks("day");
+		$scope.getLatestStocks();
 
 		//line chart
 		$http.get('http://128.199.105.21:8000/api/stocks/'+$routeParams.stockID+'/')
@@ -323,8 +369,10 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			var stocks = data;
 			var chartData = []; //store stock data for making graph
 
-			//choose 100 close&open price
-			for (var i = 0; i < 99; i++) {
+			console.log("chart");
+
+			//choose 100 close&open price //history
+			for (var i=0; i<100; i++) {
 				var newDate = new Date(stocks[i].date);
 				var closed_price = stocks[i].close_price;
 				var open_price = stocks[i].open_price;
@@ -335,15 +383,17 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 				  open_price: open_price
 				});
 			};
-			for (var i = 110; i < 120; i++) {
-				var newDate = new Date(stocks[i].date);
-				var open_price = stocks[i].open_price;
-				//store each data
-				chartData.push({
-				  date: newDate,
-				  open_price: open_price
-				});
-			};
+
+			//predicted
+			// for (var i = 110; i < 120; i++) {
+			// 	var newDate = new Date(stocks[i].date);
+			// 	var open_price = stocks[i].open_price;
+			// 	//store each data
+			// 	chartData.push({
+			// 	  date: newDate,
+			// 	  open_price: open_price
+			// 	});
+			// };
 
 			// console.log(chartData);
 			//creating graph
