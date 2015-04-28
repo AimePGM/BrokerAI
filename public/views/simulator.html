@@ -86,12 +86,12 @@
 													<td class="col-md-1 col-lg-1 col-sm-1 vol-col">{{stock.bs_volume | number:3}}</td>
 
 													<!--DT-->
-													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
-													<td ng-if="(stock.high_price - stock.dt_daily)<(stock.high_price - stock.nn_daily)" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
+													<td ng-if="(stock.high_price - stock.dt_daily)<(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
+													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
 													
 													<!--NN-->
-													<td ng-if="(stock.high_price - stock.dt_daily)<(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
-													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
+													<td ng-if="(stock.high_price - stock.dt_daily)<(stock.high_price - stock.nn_daily)" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
+													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
 
 												</th>
 											</tr>
