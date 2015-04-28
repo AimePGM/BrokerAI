@@ -49,15 +49,20 @@
 					<tbody class="stocks day">
 						<tr ng-repeat="stock in stocks">
 							<th id="noborder">
+								
 								<button id="{{stock.company_id}}" ng-click="toggle(stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
+							
 							</th>
 							<th scope="row" class="col-md-2 col-lg-2-col-sm-2">{{stock.symbol}}
 								<td style="position:relative;" class="col-md-4 col-lg-4-col-sm-4"><a href="/stocks/{{stock.company_id}}">{{stock.company_name}}<i class="fa fa-info-circle moreinfo"> </i></a>
 								</td>
 
 								<td class="col-md-2 col-lg-2-col-sm-2">{{stock.high_price | number:3}}</td>
-								<td class="col-md-2 col-lg-2-col-sm-2">{{stock.dt_daily | number:3}}</td>
-								<td class="col-md-2 col-lg-2-col-sm-2">{{stock.nn_daily | number:3}}</td>
+								
+								<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-2 col-lg-2-col-sm-2">{{stock.dt_daily | number:3}}</td>
+								<td ng-if="(stock.high_price - stock.dt_daily)<(stock.high_price - stock.nn_daily)" class="hi-light col-md-2 col-lg-2-col-sm-2">{{stock.dt_daily | number:3}}</td>
+								<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="hi-light col-md-2 col-lg-2-col-sm-2">{{stock.nn_daily | number:3}}</td>
+								<td ng-if="(stock.high_price - stock.dt_daily)<(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-2 col-lg-2-col-sm-2">{{stock.nn_daily | number:3}}</td>
 								
 								<td ng-if="stock.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{stock.daily_predict_price}}
 									<li class="fa fa-caret-down"> {{stock.daily_predict_percent}}</li>

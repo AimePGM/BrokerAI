@@ -45,15 +45,16 @@
 										</div>
 								</div>
 								<div class="content">
-									<table class="table-bordered" style="display: none;">
+									<table class="table-bordered">
 										<thead>
 											<tr>
 												<th id="noBorder"></th>
 												<th class="col-md-2 col-lg-2 col-sm-2">SYMBOL</th>
-												<th class="col-md-4 col-lg-4 col-sm-4">COMPANY</th>
-												<th class="col-md-2 col-lg-2 col-sm-2">LAST SALE</th>
+												<th class="col-md-3 col-lg-3 col-sm-3">COMPANY</th>
+												<th class="col-md-2 col-lg-2 col-sm-1" style="font-size: 18px;">LAST SALE</th>
 												<th class="col-md-1 col-lg-1 col-sm-1" style="font-size: 12px;">Reccommend<br>BUY AT</th>
 												<th class="col-md-1 col-lg-1 col-sm-1" style="font-size: 12px;">Reccommend<br>SELL AT</th>
+												<th class="col-md-2 col-lg-2 col-sm-1" style="font-size: 12px;">Reccommend<br>VOLUME</th>
 												<th class="col-md-1 col-lg-1 col-sm-1" style="font-size: 12px;">DT PREDICTION</th>
 												<th class="col-md-1 col-lg-1 col-sm-1" style="font-size: 12px;">NN PREDICTION</th>
 											</tr>
@@ -65,13 +66,15 @@
 													<button id="{{stock.company_id}}" ng-click="toggle(stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
 												</th>
 												<th scope="row" class="col-md-2 col-lg-2 col-sm-2">{{stock.symbol}}
-													<td style="position:relative;" class="col-md-4 col-lg-4 col-sm-4"><a href="/stocks/{{stock.company_id}}">{{stock.company_name}}<i class="fa fa-info-circle moreinfo"> </i></a>
+													<td style="position:relative;" class="col-md-4 col-lg-4 col-sm-4"><a href="/stocks/{{stock.company_id}}">{{stock.company_name}} a<i class="fa fa-info-circle moreinfo"> </i></a>
 													</td>
 													<td class="col-md-2 col-lg-2 col-sm-2">{{stock.high_price | number:3}}</td>
 													<td class="col-md-1 col-lg-1 col-sm-1">{{stock.bs_daily_buy | number:3}}</td>
 													<td class="col-md-1 col-lg-1 col-sm-1">{{stock.bs_daily_sell | number:3}}</td>
-													<td class="col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
-													<td class="col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
+													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
+													<td ng-if="(stock.high_price - stock.dt_daily)<(stock.high_price - stock.nn_daily)" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
+													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
+													<td ng-if="(stock.high_price - stock.dt_daily)>(stock.high_price - stock.nn_daily)" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
 
 												</th>
 											</tr>
