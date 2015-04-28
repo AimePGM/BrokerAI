@@ -160,6 +160,16 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 									stock.dt_daily = predicted[i].dt_daily;
 									stock.bs_daily_buy = predicted[i].bs_daily_buy;
 									stock.bs_daily_sell = predicted[i].bs_daily_sell;
+									var x = stock.high_price - predicted[i].dt_daily;
+									var y = stock.high_price - predicted[i].nn_daily;
+									if (x<0) x = x*(-1);
+									if (y<0) y = y*(-1);
+									if (x<y) {
+										stock.hilight = "dt";
+									}else if (y<x){
+										stock.hilight = "nn";
+									}
+
 									return true;
 								}
 							};
@@ -172,6 +182,16 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 									stock.dt_daily = predicted[i].dt_weekly;
 									stock.bs_daily_buy = predicted[i].bs_weekly_buy;
 									stock.bs_daily_sell = predicted[i].bs_weekly_sell;
+									var x = stock.high_price - predicted[i].dt_daily;
+									var y = stock.high_price - predicted[i].nn_daily;
+									if (x<0) x = x*(-1);
+									if (y<0) y = y*(-1);
+									if (x<y) {
+										stock.hilight = "dt";
+									}else if (y<x){
+										stock.hilight = "nn";
+									}
+
 									return true;
 								}
 							};
@@ -184,11 +204,24 @@ stockControllers.controller('StockListCtrl', ['$scope', '$http','usSpinnerServic
 									stock.dt_daily = predicted[i].dt_monthly;
 									stock.bs_daily_buy = predicted[i].bs_monthly_buy;
 									stock.bs_daily_sell = predicted[i].bs_monthly_sell;
+									var x = stock.high_price - predicted[i].dt_daily;
+									var y = stock.high_price - predicted[i].nn_daily;
+									if (x<0) x = x*(-1);
+									if (y<0) y = y*(-1);
+									if (x<y) {
+										stock.hilight = "dt";
+									}else if (y<x){
+										stock.hilight = "nn";
+									}
+
 									return true;
 								}
 							};
 						});
 					}
+					console.log(p);
+
+					
 
 					$scope.stocks=p;
 					usSpinnerService.stop('spinner-1');
