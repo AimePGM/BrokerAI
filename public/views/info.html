@@ -28,7 +28,7 @@
 									<input id="monthly" value="m" type="radio" name="predict" autocomplete="off"> Monthly
 								</label>
 					</div>
-				<div>
+				<div style="display: none;">
 						<label class="btn line-graph-btn">
 							<a href="#line" target = "" id="line_btn" style="color: #fff; text-decoration:none;">LINE CHART</a>
 						</label>
@@ -51,69 +51,69 @@
 						</tr>
 						<tbody id="dayinfo">
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Open</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.open_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Open</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.open_price | number:3}}</th>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">High</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.high_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">High</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.high_price | number:3}}</th>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Low</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.low_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Low</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.low_price | number:3}}</th>
 								</tr>
 								
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Close</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.close_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Close</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.close_price | number:3}}</th>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Volume</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{day_lastest.volume | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Volume</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.volume | number:3}}</th>
 								</tr>
 						</tbody>
 						<tbody id="weekinfo" style="display:none;">
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Open</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.open_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Open</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.open_price | number:3}}</th>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">High</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.high_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">High</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.high_price | number:3}}</th>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Low</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.low_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Low</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.low_price | number:3}}</th>
 								</tr>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Close</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.close_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Close</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.close_price | number:3}}</th>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Volume</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{week_lastest.volume | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Volume</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.volume | number:3}}</th>
 								</tr>
 						</tbody>
 						<tbody id="monthinfo" style="display:none;">
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Open</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.open_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Open</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.open_price | number:3}}</th>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">High</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.high_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">High</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.high_price | number:3}}</th>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Low</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.low_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Low</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.low_price | number:3}}</th>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Close</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.close_price | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Close</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.close_price | number:3}}</th>
 								</tr>
 								<tr>
-									<th class="col-md-6 col-lg-6 col-sm-6">Volume</th>
-									<th class="col-md-6 col-lg-6 col-sm-6">{{month_lastest.volume | number:3}}</th>
+									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Volume</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.volume | number:3}}</th>
 								</tr>
 						</tbody>
 					</thead>
@@ -127,25 +127,76 @@
 							<th id="weekprehead" style="display: none;" colspan="2">THIS WEEK PREDICTION</th>
 							<th id="monthprehead" style="display: none;" colspan="2">THIS MONTH PREDICTION</th>
 						</tr>
-						<tbody>
-							<tr id="daypre">
-									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">
-										<li class="fa fa-caret-up"> <b>{{day_lastest.dt_daily | number:3}}</b></li></th></th>
-									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">{{day_lastest.nn_daily | number:3}}</th>
-								</tr>
-							<tr id="weekpre" style="display: none;">
-									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">
-										<li class="fa fa-caret-up"> <b>{{week_lastest.dt_daily | number:3}}</b></li></th></th>
-									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">{{week_lastest.nn_daily | number:3}}</th>
-								</tr>
-								<tr id="monthpre" style="display: none;">
-									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">
-										<li class="fa fa-caret-up"> <b>{{month_lastest.dt_daily | number:3}}</b></li></th></th>
-									<th class="col-md-6 col-lg-6 col-sm-6 predict-value-wrapper up-on-white" style="font-size: 60px;">{{month_lastest.nn_daily | number:3}}</th>
-								</tr>
-								
-						</tbody>
+						
 					</thead>
+
+					<!--day pre-->
+						<tbody id="daypre">
+							<tr >
+								<td class="side-table-head col-md-4 col-lg-4 col-sm-4">
+									NN Prediction
+								</td>
+								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
+									<li class="fa fa-caret-up"> <b>{{day_lastest.dt_daily | number:3}}</b></li>
+								</td>
+									
+							</tr>
+							<tr>
+								<td  class="side-table-head col-md-4 col-lg-4 col-sm-4">
+									DT Prediction
+								</td>
+								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
+									<li class="fa fa-caret-up"> <b>{{day_lastest.nn_daily | number:3}}</b></li>
+								</td>
+							</tr>
+								
+						</tbody><!--day pre-->
+
+
+						<!--week pre-->
+						<tbody id="weekpre" style="display: none;">
+							<tr >
+								<td  class="side-table-head col-md-4 col-lg-4 col-sm-4">
+									NN Prediction
+								</td>
+								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
+									<li class="fa fa-caret-up"> <b>{{week_lastest.dt_daily | number:3}}</b></li>
+								</td>
+									
+							</tr>
+							<tr>
+								<td  class="side-table-head col-md-4 col-lg-4 col-sm-4">
+									DT Prediction
+								</td>
+								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
+									<li class="fa fa-caret-up"> <b>{{week_lastest.nn_daily | number:3}}</b></li>
+								</td>
+							</tr>
+								
+						</tbody><!--week pre-->
+
+
+						<!--month pre-->
+						<tbody id="monthpre" style="display: none;">
+							<tr>
+								<td  class="side-table-head col-md-4 col-lg-4 col-sm-4">
+									NN Prediction
+								</td>
+								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
+									<li class="fa fa-caret-up"> <b>{{month_lastest.dt_daily | number:3}}</b></li>
+								</td>
+									
+							</tr>
+							<tr>
+								<td  class="side-table-head col-md-4 col-lg-4 col-sm-4">
+									DT Prediction
+								</td>
+								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
+									<li class="fa fa-caret-up"> <b>{{month_lastest.nn_daily | number:3}}</b></li>
+								</td>
+							</tr>
+								
+						</tbody><!--month pre-->
 				</table>
 				</div>
 				
