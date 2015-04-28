@@ -26,7 +26,7 @@
 													<div class="col-md-6 col-lg-6 col-sm-6">
 																<input type="text" name="budget" placeholder="BUDGET" ng-model="budget" class="form-control submitB">
 														</div>
-														<div class="col-md-6 col-lg-6 col-sm-12" style="height: 55px; display: none;">
+														<!--div class="col-md-6 col-lg-6 col-sm-12" style="height: 55px; display: none;">
 																			<div data-toggle="buttons" class="btn-group btn-group-options" style="margin-top: -5px;height: 65px;">
 																				<label ng-click="" class="btn btn-darkgrey active" style="font-size: 20px;padding-top: 10px;">
 																					<input id="daily" type="radio" name="duration" value="d" autocomplete="off" checked=""> Daily</label>
@@ -35,7 +35,7 @@
 																				<label ng-click="" class="btn btn-darkgrey" style="font-size: 20px;padding-top: 10px;">
 																					<input id="monthly" type="radio" name="duration" value="m"  autocomplete="off"> Monthly</label>
 																			</div>
-																		</div>
+																		</div-->
 														<div class="col-md-6 col-lg-6 col-sm-6">
 																<input type="text" name="profit" placeholder="PROFITS" ng-model="profit" class="form-control submitB">
 														</div>
@@ -85,14 +85,26 @@
 													<td class="col-md-1 col-lg-1 col-sm-1 vol-col">{{stock.bs_volume | number:3}}</td-->
 													<td class="col-md-1 col-lg-1 col-sm-1 vol-col"><pre>{{volume}}</pre></td>
 
-													<!--DT-->
-													<td ng-if="stock.hilight==='nn'" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
-													<td ng-if="stock.hilight==='dt'" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
+												<!--DT-->
+									<!-- up and hilight nn-->
+													<td ng-if="stock.hilight==='nn' && stock.high_price<stock.dt_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 up-on-light"><li class="fa fa-caret-up"> {{stock.dt_daily | number:3}}</li></td>
+									<!-- up and hilight dt-->
+													<td ng-if="stock.hilight==='dt'  && stock.high_price<stock.dt_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 up-on-dark"><li class="fa fa-caret-up"><b> {{stock.dt_daily | number:3}}</b></li></td>
+									<!-- down and hilight nn-->
+													<td ng-if="stock.hilight==='nn' && stock.high_price>stock.dt_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 down-on-light"><li class="fa fa-caret-down"> {{stock.dt_daily | number:3}}</li></td>
+									<!-- down and hilight dt-->
+													<td ng-if="stock.hilight==='dt'  && stock.high_price>stock.dt_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 down-on-dark"><li class="fa fa-caret-down"><b> {{stock.dt_daily | number:3}}</b></li></td>
 
 
 													<!--NN-->
-													<td ng-if="stock.hilight==='nn'" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
-													<td ng-if="stock.hilight==='dt'" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
+									<!-- up and hilight nn-->
+													<td ng-if="stock.hilight==='nn' && stock.high_price<stock.nn_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 up-on-dark"><li class="fa fa-caret-up"><b> {{stock.nn_daily | number:3}}</b></li></td>
+									<!-- up and hilight dt-->
+													<td ng-if="stock.hilight==='dt' && stock.high_price<stock.nn_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 up-on-light"><li class="fa fa-caret-up"> {{stock.nn_daily | number:3}}</li></td>
+									<!-- down and hilight nn-->
+													<td ng-if="stock.hilight==='nn' && stock.high_price>stock.nn_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 down-on-light"><li class="fa fa-caret-down"> {{stock.nn_daily | number:3}}</li></td>
+									<!-- down and hilight dt-->
+													<td ng-if="stock.hilight==='dt' && stock.high_price>stock.nn_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 down-on-dark"><li class="fa fa-caret-down"><b> {{stock.nn_daily | number:3}}</b></li></td>
 
 												</th>
 											</tr>

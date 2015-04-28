@@ -59,21 +59,26 @@
 
 								<td class="col-md-2 col-lg-2-col-sm-2">{{stock.high_price | number:3}}</td>
 								
-								<!--DT-->
-								<td ng-if="stock.hilight==='nn'" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
-								<td ng-if="stock.hilight==='dt'" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.dt_daily | number:3}}</td>
+									<!--DT-->
+									<!-- up and hilight nn-->
+										<td ng-if="stock.hilight==='nn' && stock.high_price<stock.dt_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 up-on-light"><li class="fa fa-caret-up"> {{stock.dt_daily | number:3}}</li></td>
+									<!-- up and hilight dt-->
+										<td ng-if="stock.hilight==='dt'  && stock.high_price<stock.dt_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 up-on-dark"><li class="fa fa-caret-up"><b> {{stock.dt_daily | number:3}}</b></li></td>
+									<!-- down and hilight nn-->
+										<td ng-if="stock.hilight==='nn' && stock.high_price>stock.dt_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 down-on-light"><li class="fa fa-caret-down"> {{stock.dt_daily | number:3}}</li></td>
+									<!-- down and hilight dt-->
+										<td ng-if="stock.hilight==='dt'  && stock.high_price>stock.dt_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 down-on-dark"><li class="fa fa-caret-down"><b> {{stock.dt_daily | number:3}}</b></li></td>
 
 
-								<!--NN-->
-								<td ng-if="stock.hilight==='nn'" class="hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
-								<td ng-if="stock.hilight==='dt'" class="non-hi-light col-md-1 col-lg-1 col-sm-1">{{stock.nn_daily | number:3}}</td>
-								
-								<td ng-if="stock.daily_predict==='down'" class="col-md-3 col-lg-3-col-sm-3 down">{{stock.daily_predict_price}}
-									<li class="fa fa-caret-down"> {{stock.daily_predict_percent}}</li>
-								</td>
-								<td ng-if="stock.daily_predict==='up'" class="col-md-3 col-lg-3-col-sm-3 up">{{stock.daily_predict_price}}
-									<li class="fa fa-caret-up"> {{stock.daily_predict_percent}}</li>
-								</td>
+									<!--NN-->
+									<!-- up and hilight nn-->
+										<td ng-if="stock.hilight==='nn' && stock.high_price<stock.nn_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 up-on-dark"><li class="fa fa-caret-up"><b> {{stock.nn_daily | number:3}}</b></li></td>
+									<!-- up and hilight dt-->
+										<td ng-if="stock.hilight==='dt' && stock.high_price<stock.nn_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 up-on-light"><li class="fa fa-caret-up"> {{stock.nn_daily | number:3}}</li></td>
+									<!-- down and hilight nn-->
+										<td ng-if="stock.hilight==='nn' && stock.high_price>stock.nn_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 down-on-light"><li class="fa fa-caret-down"> {{stock.nn_daily | number:3}}</li></td>
+									<!-- down and hilight dt-->
+										<td ng-if="stock.hilight==='dt' && stock.high_price>stock.nn_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 down-on-dark"><li class="fa fa-caret-down"><b> {{stock.nn_daily | number:3}}</b></li></td>
 							</th>
 						</tr>
 					</tbody><!--day-->

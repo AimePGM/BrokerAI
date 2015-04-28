@@ -547,9 +547,9 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 		}
 
 		var vol = 0;
-		$scope.volume = '';
-		$scope.budget = '';
-		$scope.profit = '';
+		$scope.volume = 'No data';
+		$scope.budget = 'Budget';
+		$scope.profit = '%Profit';
 		var b = $scope.budget;
 		var p = $scope.profit;
       	$scope.simSubmit = function() {

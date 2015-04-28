@@ -307,11 +307,11 @@
 .predict-value-wrapper{
 	font-size: 100px; 
 }
-.up-on-white{
-	color: #088A08;
+.up-on-light{
+	color: #04B404;
 }
-.down-on-white{
-	color: #B40404;
+.down-on-light{
+	color: #DF0101;
 }
 .table-info-pad{
 	margin-top: 20px;
@@ -357,4 +357,10 @@
 }
 .subbtn:hover{
 	background: #999;
+}
+.up-on-dark{
+	color: #2EFE2E;
+}
+.down-on-dark{
+	color: #D60000;
 }
