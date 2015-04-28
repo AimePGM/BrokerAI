@@ -326,7 +326,7 @@
   font-size: 14px;
 }
 .hi-light{
-	background: #888;
+	background: #BDBDBD;
 	font-style: italic;
 	font-weight: 700;
 }
@@ -359,7 +359,7 @@
 	background: #999;
 }
 .up-on-dark{
-	color: #2EFE2E;
+	color: #04B404;
 }
 .down-on-dark{
 	color: #D60000;
