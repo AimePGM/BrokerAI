@@ -424,7 +424,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 					});
 				};
 
-			var today = new Date();
+			var today = new Date(new Date().setDate(new Date().getDate()-1));
 			chartData.push({
 				  date: yesterday,
 				  dt: p_closed_price,
