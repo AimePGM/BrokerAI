@@ -1,7 +1,13 @@
 <div ng-include="template.navbar"></div>
     <div>
         <section class="content-section">
-            <div class="container main-content-wrapper">
+                <div class="spin">
+                        <span spinner-key="spinner-1" spinner-start-active="true" us-spinner="{radius:15, width:8, length: 16}"></span>
+                    </div>
+                    <div id="fetching" class="container main-content-wrapper" style="color: #434040; display: block;">
+                        <center><h1><i><b>FETCHING DATA ...</b></i></h1></center>
+                    </div>
+            <div id="hide" class="container main-content-wrapper">
                 <div class="row col-md-12 col-lg-12 col-sm-12">
                     <div class="row col-md-8 col-lg-8 col-sm-12">
                         <h1>DAILY RECOMMENDED</h1>
@@ -21,20 +27,20 @@
                     <hr>
                 </div>
                 <div class="content">
-                    <div ng-repeat="rs in recommemded_stocks" class="col-lg-4 col-md-4 col-sm-12 stock-predict-wrapper">
+                    <div ng-repeat="rs in rec_stocks" ng-if="rs.predict!==undefined"  class="col-lg-4 col-md-4 col-sm-12 stock-predict-wrapper">
                         <a>
                             <div class="stock-predict-content">
-                                <p class="fullname white-text">{{rs.stock_fullname}}</p>
-                                <p class="name white-text">({{rs.stock_name}})</p>
-                                <div ng-if="rs.daily_predict==='up'" class="row up">
-                                    <li class="fa fa-caret-up info"> {{rs.daily_predict_price}}</li>
-                                    <p class="info">{{rs.daily_predict_percent}}</p>
+                                <p class="fullname white-text">{{rs.name}}</p>
+                                <p class="name white-text">({{rs.symbol}})</p>
+                                <div class="row up">
+                                    <li class="fa fa-caret-up info"> {{rs.predict | number:3}}</li>
+                                    <p class="info">  {{rs.percent | number:3}} %</p>
                                 </div>
                                 <div ng-if="rs.daily_predict==='down'" class="row down">
                                     <li class="fa fa-caret-up info"> {{rs.daily_predict_price}}</li>
-                                    <p class="info">{{rs.daily_predict_percent}}</p>
+                                    <p class="info"> {{rs.daily_predict_percent}}</p>
                                 </div>
-                                <a href="/stocks/{{rs.id}}">
+                                <a href="/stocks/{{rs.company_id}}">
                                     <li class="fa fa-info moreinfo"></li>
                                 </a>
                             </div>

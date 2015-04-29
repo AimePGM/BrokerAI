@@ -432,8 +432,8 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			});
 			// var yesterday = new Date(new Date().setDate(new Date().getDate()-1));
 			// var y = new Date(new Date().setDate(new Date().getDate()-2));
-				console.log(yesterday);
-				console.log(predicted[0].dt_daily)
+				// console.log(yesterday);
+				// console.log(predicted[0].dt_daily)
 				chartData.push({
 				  date: today,
 				  dt: predicted[0].dt_daily,
@@ -729,73 +729,126 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 	}
 ]);
 
-stockControllers.controller('MainCtrl',['$scope','$routeParams','$window',
-	function($scope, $routeParams,$window) {
+stockControllers.controller('MainCtrl',['$scope','$routeParams','usSpinnerService','$http',
+	function($scope, $routeParams ,usSpinnerService ,$http) {
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
-		$scope.recommemded_stocks = [
-				{
-					"id": 1,
-					"stock_name": "AAPL",
-					"stock_fullname": "APPLE",
-					"category": "IT",
-					"daily_predict": "up",
-					"daily_predict_price": "10.85",
-					"weekly_predict": "up",
-					"weekly_predict_price": "11.05",
-					"monthly_predict": "down",
-					"monthly_predict_price": "9.69",
-					"daily_predict_percent": "47%",
-					"weekly_predict_percent": "49%",
-					"monthly_predict_percent": "43%",
-				},
-				{
-					"id": 2,
-					"stock_name": "ONFC",
-					"stock_fullname": "Oneida Financial Corp.",
-					"category": "IT",
-					"daily_predict": "down",
-					"daily_predict_price": "6.24",
-					"weekly_predict": "up",
-					"weekly_predict_price": "6.30",
-					"monthly_predict": "down",
-					"monthly_predict_price": "6.19",
-					"daily_predict_percent": "20%",
-					"weekly_predict_percent": "25%",
-					"monthly_predict_percent": "21%",
-				},
-				{
-					"id": 3,
-					"stock_name": "SFXE",
-					"stock_fullname": "SFX Enterainment, Inc.",
-					"category": "Movie",
-					"daily_predict": "down",
-					"daily_predict_price": "1.09",
-					"weekly_predict": "up",
-					"weekly_predict_price": "1.30",
-					"monthly_predict": "up",
-					"monthly_predict_price": "1.54",
-					"daily_predict_percent": "12%",
-					"weekly_predict_percent": "5%",
-					"monthly_predict_percent": "7%",
-				},
-				{
-					"id": 4,
-					"stock_name": "JAKK",
-					"stock_fullname": "JAKKS Pacific, Inc.",
-					"category": "Logistics",
-					"daily_predict": "up",
-					"daily_predict_price": "20.07",
-					"weekly_predict": "up",
-					"weekly_predict_price": "19.98",
-					"monthly_predict": "up",
-					"monthly_predict_price": "20.09",
-					"daily_predict_percent": "2%",
-					"weekly_predict_percent": "5%",
-					"monthly_predict_percent": "11%",
-				},
-			]
+		var rec_stocks = {};
+
+		$("#hide").hide();
+							
+		
+		
+
+		// var vol = 0;
+		// $scope.volume = 'No data';
+		// $scope.budget = 'Budget';
+		// $scope.profit = '%Profit';
+		// var b = $scope.budget;
+		// var p = $scope.profit;
+  //     	$scope.simSubmit = function() {
+  //       	vol = b*(p/100);
+  //       	$scope.volume = vol;
+  //       	$scope.budget = '';
+		// 	$scope.profit = '';
+		// 	console.log("Submit by budget="+budget+"and profit="+profit);
+  //       };
+        
+
+				//get predicted data
+				console.log("fetching predicted data");
+				console.err
+				$http.get('http://128.199.105.21:8000/api/predicted/').success(function(data) {
+					var pre_stocks = data;
+					console.log("fetching predicted data  ---> complete");
+
+					console.log("fetching stocks data");
+					$http.get('http://128.199.105.21:8000/api/stocks/').success(function(data) {
+						var stocks = data;
+						console.log("fetching stocks data  ---> complete");
+
+						console.log("fetching companies data");
+					$http.get('http://128.199.105.21:8000/api/companies/').success(function(data) {
+						var companies = data;
+						console.log("fetching companies data  ---> complete");
+						
+
+
+						 
+						 var num_rec=0;
+						 console.log("finding recommended stocks data");
+						 for (var i = 0; i < pre_stocks.length; i++) {
+						 	if (pre_stocks[i].bs_daily_recommend==1 && pre_stocks[i].bs_daily_buy!= 0 && pre_stocks[i].bs_daily_sell!= 0){
+						 		rec_stocks[num_rec] = pre_stocks[i];
+						 		num_rec++;
+						 	}
+						 };
+
+						
+						
+						
+						var stocks_data_num=0;
+						
+						console.log("finding stocks data from rec.id");
+						for (var i = 0; i < num_rec; i++) {
+							for (var j = 0; j < stocks.length; j++) {
+								if (stocks[j].id == rec_stocks[i].stock_id) {
+								rec_stocks[stocks_data_num].company_id = stocks[j].company_id;
+								rec_stocks[stocks_data_num].high_price = stocks[j].high_price;
+								var x =  rec_stocks[stocks_data_num].dt_daily - stocks[j].high_price;
+								var y =  rec_stocks[stocks_data_num].nn_daily - stocks[j].high_price;
+								if (x > 0 && y > 0) {
+									if(x > y) {
+										rec_stocks[stocks_data_num].predict = rec_stocks[stocks_data_num].dt_daily;
+										rec_stocks[stocks_data_num].percent = y/stocks[j].high_price
+									}
+									if(y > x) {
+										rec_stocks[stocks_data_num].predict = rec_stocks[stocks_data_num].nn_daily;
+										rec_stocks[stocks_data_num].percent = x/stocks[j].high_price;
+									}
+								}
+								stocks_data_num++;
+								}
+							};
+						};
+
+						
+
+
+						
+						
+						var companies_data_num=0;
+						console.log("finding companies data from company.id");
+						for (var i = 0; i < stocks_data_num; i++) {
+							for (var j = 0; j < companies.length; j++) {
+								if (companies[j].id == rec_stocks[i].company_id) {
+								rec_stocks[companies_data_num].name = companies[j].name;
+								rec_stocks[companies_data_num].symbol = companies[j].symbol;
+								companies_data_num++;
+								}
+							};
+						};
+						
+
+						console.log("final data");
+						console.log(rec_stocks);
+
+						// $scope.sim = {};
+
+						
+
+						$scope.rec_stocks = rec_stocks;
+						usSpinnerService.stop('spinner-1');
+						$("#fetching").hide();
+				 		$("#hide").fadeIn();
+			 		
+				 		});
+				 	});
+				});
+
+				
+
 	}
 ]);
 
