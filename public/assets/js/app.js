@@ -64,29 +64,35 @@ stockApp.config(['$routeProvider', '$locationProvider','$httpProvider',
 		$routeProvider
 		.when('/stocks', {
 			templateUrl: '/views/stocks.html',
-			controller: 'StockListCtrl'
+			controller: 'StockListCtrl',
+			title : 'Stocks'
 		})
 		.when('/stocks/:stockID', {
 			templateUrl: '/views/info.html',
-			controller: 'StockInfoCtrl'
+			controller: 'StockInfoCtrl',
+			title : 'Stocks Info'
 
 		})
 		.when('/',{
 			templateUrl: '/views/index.html',
-			controller: 'LoginCtrl'
+			controller: 'LoginCtrl',
+			title : 'Login'
 			
 		})
 		.when('/main',{
 			templateUrl: '/views/main.html',
-			controller: 'MainCtrl'
+			controller: 'MainCtrl',
+			title : 'Home'
 		})
 		.when('/favorite',{
 			templateUrl: '/views/favorite.html',
-			controller: 'FavoriteCtrl'
+			controller: 'FavoriteCtrl',
+			title : 'Favorite'
 		})
 		.when('/register',{
 			templateUrl: '/views/register.html',
-			controller: 'ResgisterCtrl'
+			controller: 'ResgisterCtrl',
+			title : 'Register'
 			
 		})
 		.when('/simulator',{
