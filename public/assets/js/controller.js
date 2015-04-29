@@ -406,25 +406,29 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 				var predicted = data;
 				var chartData = []; //store stock data for making graph
 				var yesterday = stocks[stocks.length-1].date;
-				var closed_price = stocks[stocks.length-1].close_price;
+				var p_closed_price = stocks[stocks.length-1].close_price;
 				//choose 100 close&open price //history
 				for (var i = 0; i < stocks.length; i++) {
 					var newDate = new Date(stocks[i].date);
 					var closed_price = stocks[i].close_price;
 					var open_price = stocks[i].open_price;
+					var high_price = stocks[i].high_price;
+					var low_price = stocks[i].low_price;
 					//store each data
 					chartData.push({
 					  date: newDate,
 					  closed_price: closed_price,
-					  open_price: open_price
+					  open_price: open_price,
+					  high_price: high_price,
+					  low_price: low_price
 					});
 				};
 
 			var today = new Date();
 			chartData.push({
 				  date: yesterday,
-				  dt: closed_price,
-				  nn: closed_price
+				  dt: p_closed_price,
+				  nn: p_closed_price
 			});
 			// var yesterday = new Date(new Date().setDate(new Date().getDate()-1));
 			// var y = new Date(new Date().setDate(new Date().getDate()-2));
@@ -463,7 +467,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 		        "bullet": "round",
 		        "bulletBorderThickness": 1,
 		        "hideBulletsCount": 30,
-		        "title": "open_price line", //graph line name
+		        "title": "Open Price Line", //graph line name
 		        "valueField": "open_price", //name of value
 		        "fillAlphas": 0
 		    }, {
@@ -472,7 +476,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 		        "bullet": "square",
 		        "bulletBorderThickness": 1,
 		        "hideBulletsCount": 30,
-		        "title": "closed_price line",
+		        "title": "Close Price Line",
 		        "valueField": "closed_price",
 						"fillAlphas": 0
 				},{
@@ -481,7 +485,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 		        "bullet": "square",
 		        "bulletBorderThickness": 1,
 		        "hideBulletsCount": 30,
-		        "title": "dt line",
+		        "title": "DT Predicted Line",
 		        "valueField": "dt",
 						"fillAlphas": 0
 				},{
@@ -490,8 +494,26 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 		        "bullet": "square",
 		        "bulletBorderThickness": 1,
 		        "hideBulletsCount": 30,
-		        "title": "nn line",
+		        "title": "NN Predicted Line",
 		        "valueField": "nn",
+						"fillAlphas": 0
+				},{
+						"valueAxis": "v5",
+		        "lineColor": "#FF308E",
+		        "bullet": "square",
+		        "bulletBorderThickness": 1,
+		        "hideBulletsCount": 30,
+		        "title": "Low Price Line",
+		        "valueField": "low_price",
+						"fillAlphas": 0
+				},{
+						"valueAxis": "v6",
+		        "lineColor": "#3098FF",
+		        "bullet": "square",
+		        "bulletBorderThickness": 1,
+		        "hideBulletsCount": 30,
+		        "title": "High Price Line",
+		        "valueField": "high_price",
 						"fillAlphas": 0
 		    }],
 		    "chartScrollbar": {},
