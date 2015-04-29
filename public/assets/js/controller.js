@@ -691,6 +691,7 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 						$scope.sim = {};
 						
 						$scope.simSubmit = function(){
+							$('#table').show();
 							console.log($scope.sim);
 							var b = $scope.sim.budget;
 							var p = $scope.sim.profit;
