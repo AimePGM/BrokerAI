@@ -591,16 +591,12 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
-		$scope.sim = {};
+		var rec_stocks = {};
 
-		$scope.simSubmit = function(){
-			console.log($scope.sim);
-			var b = $scope.sim.budget;
-			var p = $scope.sim.profit;
-			console.log("sim"+$scope.sim.budget);
-			console.log(b*p/100);
-			$scope.volume = b*p/100;
-		}
+		
+							
+		
+		
 
 		// var vol = 0;
 		// $scope.volume = 'No data';
@@ -636,11 +632,11 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 						
 
 
-						 var rec_stocks = {};
+						 
 						 var num_rec=0;
 						 console.log("finding recommended stocks data");
 						 for (var i = 0; i < pre_stocks.length; i++) {
-						 	if (pre_stocks[i].bs_daily_recommend==1){
+						 	if (pre_stocks[i].bs_daily_recommend==1 && pre_stocks[i].bs_daily_buy!= 0 && pre_stocks[i].bs_daily_sell!= 0){
 						 		rec_stocks[num_rec] = pre_stocks[i];
 						 		num_rec++;
 						 	}
@@ -692,6 +688,31 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 						console.log("final data");
 						console.log(rec_stocks);
 
+						$scope.sim = {};
+						
+						$scope.simSubmit = function(){
+							console.log($scope.sim);
+							var b = $scope.sim.budget;
+							var p = $scope.sim.profit;
+							for (var i = 0; i < num_rec; i++) {
+								
+								var hp = rec_stocks[i].high_price;
+								if(rec_stocks[i].bs_daily_sell==0 || rec_stocks[i].bs_daily_buy==0){
+									rec_stocks[i].volume = "No data";
+								}else{
+								var bss = rec_stocks[i].bs_daily_sell;
+								var bsb = rec_stocks[i].bs_daily_buy;
+								var cal = (b*p/100)/(bss-bsb)
+								var mc = Math.ceil(cal);
+								rec_stocks[i].volume = mc;
+								}
+								
+							}
+							$scope.volume = simCal;
+						};
+
+						
+
 						$scope.rec_stocks = rec_stocks;
 						usSpinnerService.stop('spinner-1');
 						$("#fetching").hide();
@@ -701,6 +722,8 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 				 		});
 				 	});
 				});
+
+				
 
 	}
 ]);
