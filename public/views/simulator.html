@@ -24,7 +24,7 @@
 												</div>
 												<div style="margin-bottom:15px;" class="row">
 													<div class="col-md-6 col-lg-6 col-sm-6">
-																<input type="text" name="budget" placeholder="BUDGET" ng-model="budget" class="form-control submitB">
+																<input type="text" name="budget" placeholder="BUDGET" ng-model="sim.budget" class="form-control submitB">
 														</div>
 														<!--div class="col-md-6 col-lg-6 col-sm-12" style="height: 55px; display: none;">
 																			<div data-toggle="buttons" class="btn-group btn-group-options" style="margin-top: -5px;height: 65px;">
@@ -37,13 +37,13 @@
 																			</div>
 																		</div-->
 														<div class="col-md-6 col-lg-6 col-sm-6">
-																<input type="text" name="profit" placeholder="%PROFIT" ng-model="profit" class="form-control submitB">
+																<input type="text" name="profit" placeholder="%PROFIT" ng-model="sim.profit" class="form-control submitB">
 														</div>
 												</div>
 												<div class="row">
 														<div class="col-md-12">
 															<label class="btn submitB category-drop btn-primary">
-																<input  type="submit" id="submit" value="Submit" class="subbtn"/></label>
+																<input  type="submit" class="subbtn"/></label>
 														</div>
 												</div>
 											</form>
@@ -53,7 +53,6 @@
 									<table class="table-bordered">
 										<thead>
 											<tr>
-												<th id="noBorder"></th>
 												<th class="col-md-2 col-lg-2 col-sm-2">SYMBOL</th>
 												<th class="col-md-3 col-lg-3 col-sm-3">COMPANY</th>
 												<th class="col-md-2 col-lg-2 col-sm-2" style="font-size: 18px;">LAST SALE</th>
@@ -67,9 +66,7 @@
 										
 										<tbody class="stocks">
 											<tr ng-repeat="stock in rec_stocks">
-												<th id="noborder">
-													<button id="{{stock.company_id}}" ng-click="toggle(stock.company_id)" class="noBgButton favButton fa fa-heart down"></button>
-												</th>
+												
 												<th scope="row" class="col-md-2 col-lg-2 col-sm-2">{{stock.symbol}}
 													<td style="position:relative;" class="col-md-3 col-lg-3 col-sm-3"><a href="/stocks/{{stock.company_id}}">{{stock.name}}<i class="fa fa-info-circle moreinfo"> </i></a>
 													</td>

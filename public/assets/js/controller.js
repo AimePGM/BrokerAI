@@ -310,7 +310,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 						};
 
 						
-						console.log(day_lastest);
+						// console.log(day_lastest);
 						
 						$scope.day_lastest=day_lastest;
 						// console.log(day_lastest);
@@ -400,48 +400,47 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 		$http.get('http://128.199.105.21:8000/api/stocks/'+$routeParams.stockID+'/')
 		.success(function(data) {
 			var stocks = data;
-			var chartData = []; //store stock data for making graph
 
-			//choose 100 close&open price //history
-			for (var i = 0; i < stocks.length; i++) {
-				var newDate = new Date(stocks[i].date);
-				var closed_price = stocks[i].close_price;
-				var open_price = stocks[i].open_price;
-				//store each data
-				chartData.push({
-				  date: newDate,
-				  closed_price: closed_price,
-				  open_price: open_price
-				});
-			};
-
-			var today = new Date();
-			$http.get('http://128.199.105.21:8000/api/predicted/')
+			$http.get('http://128.199.105.21:8000/api/predicted/companies/'+$routeParams.stockID+'/')
 			.success(function(data){
 				var predicted = data;
-				var nn;
-				var dt;
+				var chartData = []; //store stock data for making graph
+				var yesterday = stocks[stocks.length-1].date;
+				var closed_price = stocks[stocks.length-1].close_price;
+				//choose 100 close&open price //history
+				for (var i = 0; i < stocks.length; i++) {
+					var newDate = new Date(stocks[i].date);
+					var closed_price = stocks[i].close_price;
+					var open_price = stocks[i].open_price;
+					//store each data
+					chartData.push({
+					  date: newDate,
+					  closed_price: closed_price,
+					  open_price: open_price
+					});
+				};
 
-				for(var i = 0; i < predicted.length; i++){ 
-					if(predicted[i].stock_id==$routeParams.stockID){
-						nn = predicted[i].nn_daily;
-						dt = predicted[i].dt_daily;
-						break;
-					}
-				}
-
+			var today = new Date();
+			chartData.push({
+				  date: yesterday,
+				  dt: closed_price,
+				  nn: closed_price
+			});
+			// var yesterday = new Date(new Date().setDate(new Date().getDate()-1));
+			// var y = new Date(new Date().setDate(new Date().getDate()-2));
+				console.log(yesterday);
+				console.log(predicted[0].dt_daily)
 				chartData.push({
 				  date: today,
-				  dt: dt,
-				  nn: nn
+				  dt: predicted[0].dt_daily,
+				  nn: predicted[0].nn_daily
 				});
+				
 
-			})
-			.error(function(data){
-				console.log(data);
-			});
+				
+				console.log("input fin")
 
-			//creating graph
+					//creating graph
 			var chart = AmCharts.makeChart("linechart", {
 		    "type": "serial",
 		    "theme": "none",
@@ -476,6 +475,24 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 		        "title": "closed_price line",
 		        "valueField": "closed_price",
 						"fillAlphas": 0
+				},{
+						"valueAxis": "v3",
+		        "lineColor": "#06BC5E",
+		        "bullet": "square",
+		        "bulletBorderThickness": 1,
+		        "hideBulletsCount": 30,
+		        "title": "dt line",
+		        "valueField": "dt",
+						"fillAlphas": 0
+				},{
+						"valueAxis": "v4",
+		        "lineColor": "#4C06BC",
+		        "bullet": "square",
+		        "bulletBorderThickness": 1,
+		        "hideBulletsCount": 30,
+		        "title": "nn line",
+		        "valueField": "nn",
+						"fillAlphas": 0
 		    }],
 		    "chartScrollbar": {},
 		    "chartCursor": {
@@ -495,6 +512,13 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 			chart.addListener("dataUpdated", zoomChart);
 			zoomChart();
 
+
+			})
+			.error(function(data){
+				console.log(data);
+			});
+
+		//
 		});
 	}
 ]);
@@ -545,20 +569,30 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 		$scope.template={
 			"navbar": "/views/navbar.html"
 		}
+		$scope.sim = {};
 
-		var vol = 0;
-		$scope.volume = 'No data';
-		$scope.budget = 'Budget';
-		$scope.profit = '%Profit';
-		var b = $scope.budget;
-		var p = $scope.profit;
-      	$scope.simSubmit = function() {
-        	vol = b*(p/100);
-        	$scope.volume = vol;
-        	$scope.budget = '';
-			$scope.profit = '';
-			console.log("Submit by budget="+budget+"and profit="+profit);
-        };
+		$scope.simSubmit = function(){
+			console.log($scope.sim);
+			var b = $scope.sim.budget;
+			var p = $scope.sim.profit;
+			console.log("sim"+$scope.sim.budget);
+			console.log(b*p/100);
+			$scope.volume = b*p/100;
+		}
+
+		// var vol = 0;
+		// $scope.volume = 'No data';
+		// $scope.budget = 'Budget';
+		// $scope.profit = '%Profit';
+		// var b = $scope.budget;
+		// var p = $scope.profit;
+  //     	$scope.simSubmit = function() {
+  //       	vol = b*(p/100);
+  //       	$scope.volume = vol;
+  //       	$scope.budget = '';
+		// 	$scope.profit = '';
+		// 	console.log("Submit by budget="+budget+"and profit="+profit);
+  //       };
         
 
 				//get predicted data
