@@ -68,6 +68,8 @@
 										<td ng-if="stock.hilight==='nn' && stock.high_price>stock.dt_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 down-on-light"><li class="fa fa-caret-down"> {{stock.dt_daily | number:3}}</li></td>
 									<!-- down and hilight dt-->
 										<td ng-if="stock.hilight==='dt'  && stock.high_price>stock.dt_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 down-on-dark"><li class="fa fa-caret-down"><b> {{stock.dt_daily | number:3}}</b></li></td>
+									<!--case null-->
+										<td ng-if="stock.dt_daily===null" class="col-md-1 col-lg-1 col-sm-1"> No Data</td>
 
 
 									<!--NN-->
@@ -79,6 +81,8 @@
 										<td ng-if="stock.hilight==='nn' && stock.high_price>stock.nn_daily" class="hi-light col-md-1 col-lg-1 col-sm-1 down-on-light"><li class="fa fa-caret-down"> {{stock.nn_daily | number:3}}</li></td>
 									<!-- down and hilight dt-->
 										<td ng-if="stock.hilight==='dt' && stock.high_price>stock.nn_daily" class="non-hi-light col-md-1 col-lg-1 col-sm-1 down-on-dark"><li class="fa fa-caret-down"><b> {{stock.nn_daily | number:3}}</b></li></td>
+									<!--case null-->
+										<td ng-if="stock.dt_daily===null" class="col-md-1 col-lg-1 col-sm-1"> No Data</td>
 							</th>
 						</tr>
 					</tbody><!--day-->

@@ -19,14 +19,15 @@
 
 				<div class="row col-md-4 col-lg-4 col-sm-12">
 					<div data-toggle="buttons" class="btn-group btn-group-options">
-						<label  class="btn btn-darkgrey active">
+						<label value="d" class="btn btn-darkgrey active">
 							<input id="daily" value="d" type="radio" name="predict" autocomplete="off" checked> Daily
 						</label>
-						<label class="btn btn-darkgrey">
-							<input id="weekly" value="w" type="radio" name="predict" autocomplete="off"> Weekly</label>
-								<label class="btn btn-darkgrey">
-									<input id="monthly" value="m" type="radio" name="predict" autocomplete="off"> Monthly
-								</label>
+						<label value="w" class="btn btn-darkgrey">
+							<input id="weekly" value="w" type="radio" name="predict" autocomplete="off"> Weekly
+						</label>
+						<label value="m" class="btn btn-darkgrey">
+							<input id="monthly" value="m" type="radio" name="predict" autocomplete="off"> Monthly
+						</label>
 					</div>
 				<div style="display: none;">
 						<label class="btn line-graph-btn">
@@ -46,8 +47,8 @@
 					<thead>
 						<tr>
 							<th id="dayhishead" colspan="2">PREVIOUS DAY</th>
-							<th id="weekhishead" colspan="2" style="display: none;">PREVIOUS WEEK</th>
-							<th id="monthhishead" colspan="2" style="display: none;">PREVIOUS MONTH</th>
+							<th id="weekhishead" colspan="2" style="display: none;">PREVIOUS DAY</th>
+							<th id="monthhishead" colspan="2" style="display: none;">PREVIOUS DAY</th>
 						</tr>
 						<tbody id="dayinfo">
 								<tr>
@@ -75,45 +76,45 @@
 						<tbody id="weekinfo" style="display:none;">
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Open</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.open_price | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.open_price | number:3}}</th>
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">High</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.high_price | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.high_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Low</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.low_price | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.low_price | number:3}}</th>
 								</tr>
 								</tr>
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Close</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.close_price | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.close_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Volume</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{week_lastest.volume | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.volume | number:3}}</th>
 								</tr>
 						</tbody>
 						<tbody id="monthinfo" style="display:none;">
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Open</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.open_price | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.open_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">High</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.high_price | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.high_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Low</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.low_price | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.low_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Close</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.close_price | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.close_price | number:3}}</th>
 								</tr>
 								<tr>
 									<th class="side-table-head col-md-4 col-lg-4 col-sm-4">Volume</th>
-									<th class="col-md-8 col-lg-8 col-sm-8">{{month_lastest.volume | number:3}}</th>
+									<th class="col-md-8 col-lg-8 col-sm-8">{{day_lastest.volume | number:3}}</th>
 								</tr>
 						</tbody>
 					</thead>
@@ -160,7 +161,7 @@
 									NN Prediction
 								</td>
 								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
-								<b>{{week_lastest.dt_daily | number:3}}</b>
+								<b>{{week_lastest.dt_weekly | number:3}}</b>
 								</td>
 									
 							</tr>
@@ -169,7 +170,7 @@
 									DT Prediction
 								</td>
 								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
-									<b>{{week_lastest.nn_daily | number:3}}</b>
+									<b>{{week_lastest.nn_weekly | number:3}}</b>
 								</td>
 							</tr>
 								
@@ -183,7 +184,7 @@
 									NN Prediction
 								</td>
 								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
-									<b>{{month_lastest.dt_daily | number:3}}</b>
+									<b>{{month_lastest.dt_monthly | number:3}}</b>
 								</td>
 									
 							</tr>
@@ -192,7 +193,7 @@
 									DT Prediction
 								</td>
 								<td class="col-md-8 col-lg-8 col-sm-8 predict-value-wrapper up-on-white" style="font-size: 30px;">
-									<b>{{month_lastest.nn_daily | number:3}}</b>
+									<b>{{month_lastest.nn_monthly | number:3}}</b>
 								</td>
 							</tr>
 								

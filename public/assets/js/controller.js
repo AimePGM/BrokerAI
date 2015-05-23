@@ -276,7 +276,7 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 
 		$scope.getLatestStocks = function() {
 
-			$http.get('http://128.199.105.21:8000/api/predicted/')
+			$http.get('http://128.199.105.21:8000/api/predicted/companies/'+$routeParams.stockID+'/')
 			.success(function(data){
 				var predicted = data;
 
@@ -299,15 +299,12 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 							}
 						}
 
-						for (var j = 0;j < predicted.length; j++) {
-							if(day_lastest.stock_id==predicted[j].stock_id){
-								day_lastest.nn_daily = predicted[j].nn_daily;
-								day_lastest.dt_daily = predicted[j].dt_daily;
-								day_lastest.bs_daily_buy = predicted[j].bs_daily_buy;
-								day_lastest.bs_daily_sell = predicted[j].bs_daily_sell;
-								break;
-							}
-						};
+					
+								day_lastest.nn_daily = predicted[0].nn_daily;
+								day_lastest.dt_daily = predicted[0].dt_daily;
+								day_lastest.bs_daily_buy = predicted[0].bs_daily_buy;
+								day_lastest.bs_daily_sell = predicted[0].bs_daily_sell;
+							
 
 						
 						// console.log(day_lastest);
@@ -321,72 +318,40 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 				});
 
 				//get week stock's info
-				$http.get('http://128.199.105.21:8000/api/lateststocks/?type=week').success(function(data) {
-						var stocks = data;
 						var week_lastest={};
 
 						console.log("week data");
 
-						for(var i = 0; i < stocks.length; i++){ 
-							var stock = stocks[i];
-							if(stock.company_id==$routeParams.stockID){
-								week_lastest.open_price = stock.open_price;
-								week_lastest.close_price = stock.close_price;
-								week_lastest.high_price = stock.high_price;
-								week_lastest.low_price = stock.low_price;
-								week_lastest.volume = stock.volume;
-								break;
-							}
-						}
-
-						for (var j = 0;j < predicted.length; j++) {
-								if(week_lastest.stock_id==predicted[j].stock_id){
-									week_lastest.nn_daily = predicted[j].nn_daily;
-									week_lastest.dt_daily = predicted[j].dt_daily;
-									week_lastest.bs_daily_buy = predicted[j].bs_daily_buy;
-									week_lastest.bs_daily_sell = predicted[j].bs_daily_sell;
-									break;
-								}
-						};
 						
+
+				
+									week_lastest.nn_weekly = predicted[0].nn_weekly;
+									week_lastest.dt_weekly = predicted[0].dt_weekly;
+									week_lastest.bs_weekly_buy = predicted[0].bs_weekly_buy;
+									week_lastest.bs_weekly_sell = predicted[0].bs_weekly_sell;
+				
 						$scope.week_lastest=week_lastest;
 						// console.log(week_lastest);
 						
 
-				});
+			/////////
 
 				//get month stock's info
-				$http.get('http://128.199.105.21:8000/api/lateststocks/?type=month').success(function(data) {
-						var stocks = data;
 						var month_lastest={};
 						console.log("month data");
 
-						for(var i = 0; i < stocks.length; i++){ 
-							var stock = stocks[i];
-							if(stock.company_id==$routeParams.stockID){
-								month_lastest.open_price = stock.open_price;
-								month_lastest.close_price = stock.close_price;
-								month_lastest.high_price = stock.high_price;
-								month_lastest.low_price = stock.low_price;
-								month_lastest.volume = stock.volume;
-								break;
-							}
-						}
 
-						for (var j = 0;j < predicted.length; j++) {
-							if(month_lastest.stock_id==predicted[j].stock_id){
-								month_lastest.nn_daily = predicted[j].nn_daily;
-								month_lastest.dt_daily = predicted[j].dt_daily;
-								month_lastest.bs_daily_buy = predicted[j].bs_daily_buy;
-								month_lastest.bs_daily_sell = predicted[j].bs_daily_sell;
-								break;
-							}
-						};
+							
+								month_lastest.nn_monthly = predicted[0].nn_monthly;
+								month_lastest.dt_monthly = predicted[0].dt_monthly;
+								month_lastest.bs_monthly_buy = predicted[0].bs_monthly_buy;
+								month_lastest.bs_monthly_sell = predicted[0].bs_monthly_sell;
+					
 
 						$scope.month_lastest=month_lastest;
-						// console.log(month_lastest);
-						
-				});
+						console.log(month_lastest);
+						console.log(predicted);
+			///////////
 
 
 			})
@@ -424,7 +389,9 @@ stockControllers.controller('StockInfoCtrl', ['$scope', '$routeParams','$http','
 					});
 				};
 
-			var today = new Date(new Date().setDate(new Date().getDate()-1));
+			// var today = new Date(new Date().setDate(new Date().getDate()-1));
+			var today = new Date();
+
 			chartData.push({
 				  date: yesterday,
 				  dt: p_closed_price,
@@ -636,13 +603,15 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 						 var num_rec=0;
 						 console.log("finding recommended stocks data");
 						 for (var i = 0; i < pre_stocks.length; i++) {
-						 	if (pre_stocks[i].bs_daily_recommend==1 && pre_stocks[i].bs_daily_buy!= 0 && pre_stocks[i].bs_daily_sell!= 0){
+						 	if (pre_stocks[i].bs_daily_recommend==1 && pre_stocks[i].bs_daily_buy>0 
+						 		&& pre_stocks[i].bs_daily_sell>0
+						 	 ){
 						 		rec_stocks[num_rec] = pre_stocks[i];
 						 		num_rec++;
 						 	}
 						 };
 
-						
+						console.log(rec_stocks);
 						
 						
 						var stocks_data_num=0;
@@ -669,6 +638,7 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 
 						
 
+						console.log(rec_stocks);
 
 						
 						
@@ -709,7 +679,7 @@ stockControllers.controller('SimulatorCtrl',['$scope','$routeParams','$http','us
 								}
 								
 							}
-							$scope.volume = simCal;
+							// $scope.volume = simCal;
 						};
 
 						
